@@ -21,12 +21,13 @@ def cli(urls=None):
     stdout_buffer = io.StringIO()
     results = list()
 
-    url_progressbar = tqdm(urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt} | {desc}")
+    url_progressbar = tqdm(urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
+    current_value = tqdm(total=0, bar_format="{desc}", position=1)
     for url in url_progressbar:
 
         with RedirectStdStreams(stdout=stdout_buffer, stderr=stderr_buffer):
             try:
-                url_progressbar.set_description_str(url)
+                current_value.set_description_str("currently checking " + url)
                 repo = Repo(url)
                 checker = Checker(repo, ignore_repo_config=True, is_quiet=True)
                 compliance = checker.check_five_recommendations()
@@ -38,9 +39,8 @@ def cli(urls=None):
                 d = dict(url=url, badge=badge, repository=compliance.repository, license=compliance.license,
                          registry=compliance.registry, citation=compliance.citation, checklist=compliance.checklist,
                          count=compliance.count(), stdout=stdout_buffer.getvalue(), stderr=stderr_buffer.getvalue())
-
+        current_value.set_description_str()
         results.append(d)
-        url_progressbar.set_description_str()
 
     print(json.dumps(results))
 
