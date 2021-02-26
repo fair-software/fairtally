@@ -17,14 +17,13 @@ def cli(urls=None):
         print("No URLs provided, aborting.")
         return
 
-    stderr_buffer = io.StringIO()
-    stdout_buffer = io.StringIO()
     results = list()
 
     url_progressbar = tqdm(urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
     current_value = tqdm(total=0, bar_format="{desc}", position=1)
     for url in url_progressbar:
-
+        stderr_buffer = io.StringIO()
+        stdout_buffer = io.StringIO()
         with RedirectStdStreams(stdout=stdout_buffer, stderr=stderr_buffer):
             try:
                 current_value.set_description_str("currently checking " + url)
@@ -39,6 +38,7 @@ def cli(urls=None):
                 d = dict(url=url, badge=badge, repository=compliance.repository, license=compliance.license,
                          registry=compliance.registry, citation=compliance.citation, checklist=compliance.checklist,
                          count=compliance.count(), stdout=stdout_buffer.getvalue(), stderr=stderr_buffer.getvalue())
+
         current_value.set_description_str()
         results.append(d)
 
