@@ -15,8 +15,8 @@ fi
 
 echo "Starting isort analysis ..."
 
-# recursively run isort on howfairis/ directory, don't try to automatically fix anything
-isort --recursive --check-only howfairis
+# recursively run isort on fairtally/ directory, don't try to automatically fix anything
+isort --recursive --check-only fairtally
 
 if [ $? != "0" ]; then
     echo "Commit aborted."
