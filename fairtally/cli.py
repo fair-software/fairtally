@@ -2,8 +2,8 @@ import io
 import json
 import click
 from howfairis import Checker
-from howfairis import Repo
 from howfairis import Compliance
+from howfairis import Repo
 from tqdm import tqdm
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
