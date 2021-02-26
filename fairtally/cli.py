@@ -1,4 +1,5 @@
 import io
+import json
 import click
 from howfairis import Checker
 from howfairis import Repo
@@ -29,7 +30,7 @@ def cli(urls):
 
         results.append(d)
 
-    print(results)
+    print(json.dumps(results))
 
 
 if __name__ == "__main__":
