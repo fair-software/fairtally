@@ -5,8 +5,6 @@
 """
 import pytest
 
-from fairtally import fairtally
-
 
 def test_something():
     assert True
