@@ -1,9 +1,8 @@
 import io
-
 import click
-from howfairis import Checker, Repo
+from howfairis import Checker
+from howfairis import Repo
 from tqdm import tqdm
-
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
 
