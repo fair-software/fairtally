@@ -1,0 +1,36 @@
+<html>
+
+<head>
+</head>
+
+<body>
+
+<table>
+  <tr>
+    <th>URL</th>
+    <th>repository</th>
+    <th>license</th>
+    <th>registry</th>
+    <th>citation</th>
+    <th>checklist</th>
+    <th>count</th>
+    <th>badge</th>
+
+  </tr>
+
+  {% for item in results %}
+  <tr>
+    <td><a href="{{item.url}}">{{item.url}}</a></td>
+    <td>{{item.repository}}</td>
+    <td>{{item.license}}</td>
+    <td>{{item.registry}}</td>
+    <td>{{item.citation}}</td>
+    <td>{{item.checklist}}</td>
+    <td>{{item.count}}</td>
+    <td><a href="https://fair-software.nl"><img src="{{item.badge}}"></a></td>
+  </tr>
+  {% endfor %}
+
+</body>
+
+</html>

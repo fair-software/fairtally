@@ -1,9 +1,11 @@
 import io
 import json
+from pathlib import Path
 import click
 from howfairis import Checker
 from howfairis import Compliance
 from howfairis import Repo
+from jinja2 import Template
 from tqdm import tqdm
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
@@ -11,7 +13,22 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
 
 @click.command()
 @click.argument("urls", nargs=-1)
-def cli(urls=None):
+@click.option("-o", "--output-filename", "output_file", help="Where to write the results of the analysis.",
+              default=None, type=click.File("wt"))
+def cli(urls=None, output_file=None):
+
+    def write_as_json():
+        with output_file:
+            json.dump(results, output_file, sort_keys=True)
+
+    def write_as_html():
+        parent = Path(__file__).parent
+        template_file = parent / "data" / "index.html.template"
+        with open(template_file) as f:
+            template = Template(f.read())
+        s = template.render(results=results)
+        with output_file:
+            output_file.write(s)
 
     if urls is None:
         print("No URLs provided, aborting.")
@@ -42,7 +59,17 @@ def cli(urls=None):
         current_value.set_description_str()
         results.append(d)
 
-    print(json.dumps(results))
+    if output_file is None:
+        print(json.dumps(results))
+
+    elif output_file.name.endswith(".json"):
+        write_as_json()
+
+    elif output_file.name.endswith(".html"):
+        write_as_html()
+
+    else:
+        raise Exception("shouldnt happen")
 
 
 if __name__ == "__main__":
