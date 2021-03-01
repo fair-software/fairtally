@@ -27,7 +27,7 @@
     <td>{{item.citation}}</td>
     <td>{{item.checklist}}</td>
     <td>{{item.count}}</td>
-    <td><a href="https://fair-software.nl"><img src="{{item.badge}}"></a></td>
+    <td><a href="https://fair-software.eu"><img src="{{item.badge}}"></a></td>
   </tr>
   {% endfor %}
 
