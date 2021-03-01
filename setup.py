@@ -5,11 +5,6 @@ from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-# # To update the package version number, edit CITATION.cff
-# with open("CITATION.cff", "r") as cff:
-#     for line in cff:
-#         if "version:" in line:
-#             version = line.replace("version:", "").strip().strip('"')
 
 with open("README.rst") as readme_file:
     readme = readme_file.read()
