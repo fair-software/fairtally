@@ -13,13 +13,17 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
 
 @click.command()
 @click.argument("urls", nargs=-1)
-@click.option("-o", "--output-filename", "output_file", help="Where to write the results of the analysis.",
+@click.option("--html", "output_file_html",
+              help="Filename of where to write the results as HTML.",
               default=None, type=click.File("wt"))
-def cli(urls=None, output_file=None):
+@click.option("--json", "output_file_json",
+              help="Filename of where to write the results as JSON.",
+              default=None, type=click.File("wt"))
+def cli(urls=None, output_file_html=None, output_file_json=None):
 
     def write_as_json():
-        with output_file:
-            json.dump(results, output_file, sort_keys=True)
+        with output_file_json:
+            json.dump(results, output_file_json, sort_keys=True)
 
     def write_as_html():
         parent = Path(__file__).parent
@@ -27,8 +31,8 @@ def cli(urls=None, output_file=None):
         with open(template_file) as f:
             template = Template(f.read())
         s = template.render(results=results)
-        with output_file:
-            output_file.write(s)
+        with output_file_html:
+            output_file_html.write(s)
 
     if urls is None:
         print("No URLs provided, aborting.")
@@ -45,8 +49,7 @@ def cli(urls=None, output_file=None):
             try:
                 current_value.set_description_str("currently checking " + url)
                 repo = Repo(url)
-                checker = Checker(repo, ignore_repo_config=True, is_quiet=True)
-                compliance = checker.check_five_recommendations()
+                compliance = Checker(repo, ignore_repo_config=True, is_quiet=True).check_five_recommendations()
             except Exception:
                 compliance = Compliance(False, False, False, False, False)
             finally:
@@ -59,17 +62,14 @@ def cli(urls=None, output_file=None):
         current_value.set_description_str()
         results.append(d)
 
-    if output_file is None:
+    if output_file_json is None and output_file_html is None:
         print(json.dumps(results))
 
-    elif output_file.name.endswith(".json"):
+    if output_file_json is not None:
         write_as_json()
 
-    elif output_file.name.endswith(".html"):
+    if output_file_html is not None:
         write_as_html()
-
-    else:
-        raise Exception("shouldnt happen")
 
 
 if __name__ == "__main__":
