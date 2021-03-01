@@ -42,7 +42,6 @@ setup(
     install_requires=[
         "click == 7.*",
         "howfairis == 0.13.*",
-        "requests == 2.*",
         "tqdm == 4.*"
     ],
     setup_requires=[

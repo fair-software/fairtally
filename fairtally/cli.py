@@ -33,7 +33,7 @@ def cli(urls=None, output_file_html=None, output_file_json=None):
         with output_file_html:
             output_file_html.write(report)
 
-    if urls is None:
+    if len(urls) == 0:
         print("No URLs provided, aborting.")
         return
 
