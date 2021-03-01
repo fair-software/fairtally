@@ -47,7 +47,6 @@ setup(
     install_requires=[
         "click == 7.*",
         "howfairis == 0.13.*",
-        "jinja2 == 2.*",
         "requests == 2.*",
         "tqdm == 4.*"
     ],

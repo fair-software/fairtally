@@ -1,36 +1,200 @@
 <html>
 
-<head>
-</head>
+  <head>
+    <script src="https://unpkg.com/vue@3.0.6/dist/vue.global.prod.js" type="text/javascript"></script>
 
-<body>
+    <style>
+    button {
+      color: #000;
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-top: 0.4em;
+      padding-bottom: 0.4em;
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+    }
 
-<table>
-  <tr>
-    <th>URL</th>
-    <th>repository</th>
-    <th>license</th>
-    <th>registry</th>
-    <th>citation</th>
-    <th>checklist</th>
-    <th>count</th>
-    <th>badge</th>
+    table {
+      border-collapse: collapse;
+      border-spacing: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 2em;
+    }
+    tr.data-row:nth-child(even) {
+    }
+    tr.data-row:nth-child(odd) {
+      background-color: #ddd;
+    }
+    tr.data-row:nth-child(odd) {
+      background-color: #ddd;
+    }
+    tr.data-row:last-child {
+      border-bottom: 1px solid #444;
+    }
+    tr.header-row, tr.button-row {
+      background: #444;
+      color: #fff;
+    }
+    th {
+      padding: 10px;
+      border-left: 1px solid #444;
+      border-right: 1px solid #444;
+    }
+    td {
+      padding: 10px;
+      border-left: 1px solid #444;
+      border-right: 1px solid #444;
+    }
+    td img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .repo-url {
+      text-decoration: none;
+      color: #02F;
+    }
+    .repo-url:visited {
+      color: #529;
+    }
+    .repo-url:hover {
+      text-decoration: underline;
+    }
+    .col-compliance, .col-count, .col-badge {
+      text-align: center;
+      padding-left: 20px;
+      padding-right: 20px;
+      min-width: 100px;
+    }
 
-  </tr>
+    </style>
 
-  {% for item in results %}
-  <tr>
-    <td><a href="{{item.url}}">{{item.url}}</a></td>
-    <td>{{item.repository}}</td>
-    <td>{{item.license}}</td>
-    <td>{{item.registry}}</td>
-    <td>{{item.citation}}</td>
-    <td>{{item.checklist}}</td>
-    <td>{{item.count}}</td>
-    <td><a href="https://fair-software.nl"><img src="{{item.badge}}"></a></td>
-  </tr>
-  {% endfor %}
+  </head>
 
-</body>
+  <body>
+    <div id="app">
+
+      <table>
+        <tr class="header-row">
+          <th class="col-url">url</th>
+          <th class="col-compliance">repository</th>
+          <th class="col-compliance">license</th>
+          <th class="col-compliance">registry</th>
+          <th class="col-compliance">citation</th>
+          <th class="col-compliance">checklist</th>
+          <th class="col-count">count</th>
+          <th class="col-badge">badge</th>
+        </tr>
+
+        <tr class="button-row">
+          <th class="col-url">
+            <button v-on:click=sortByUrlAsc type="button">Sort ascending</button>
+            <button v-on:click=sortByUrlDesc type="button">Sort descending</button>
+          </th>
+          <th class="col-compliance">&nbsp;</th>
+          <th class="col-compliance">&nbsp;</th>
+          <th class="col-compliance">&nbsp;</th>
+          <th class="col-compliance">&nbsp;</th>
+          <th class="col-compliance">&nbsp;</th>
+          <th class="col-count">
+            <button v-on:click=sortByCountAsc type="button">Sort ascending</button>
+            <button v-on:click=sortByCountDesc type="button">Sort descending</button>
+          </th>
+          <th class="col-badge">
+            <button v-on:click=sortByBadgeAsc type="button">Sort ascending</button>
+            <button v-on:click=sortByBadgeDesc type="button">Sort descending</button>
+          </th>
+        </tr>
+
+        <tr class="data-row" v-for="item in results" key={{item.url}}>
+          <td class="col-url"><a v-bind:href="item.url" class="repo-url">{{item.url}}</a></td>
+          <td class="col-compliance" >{{item.repository? "&bull;" : "F"}}</td>
+          <td class="col-compliance" >{{item.license? "&bull;" : "F"}}</td>
+          <td class="col-compliance" >{{item.registry? "&bull;" : "F"}}</td>
+          <td class="col-compliance" >{{item.citation? "&bull;" : "F"}}</td>
+          <td class="col-compliance" >{{item.checklist? "&bull;" : "F"}}</td>
+          <td class="col-count">{{item.count}}</td>
+          <td class="col-badge"><img v-bind:src="item.badge"></td>
+        </tr>
+
+      </table>
+
+    </div>
+
+    <script>
+
+      const getData = () => {
+        return {
+          results:
+            {{python inserts the data here}}
+        }
+      }
+
+      const RootComponent = {
+        data() {
+          return getData()
+        },
+        methods: {
+          sortByBadgeAsc() {
+            const getComplianceStr = (item) => {
+              return item.repository? "1": "0" +
+                     item.license? "1": "0" +
+                     item.registry? "1": "0" +
+                     item.citation? "1": "0" +
+                     item.checklist? "1": "0"
+            }
+
+            this.results = this.results.sort((item, other_item) => {
+              if ( item.count < other_item.count ){
+                return -1;
+              }
+              if ( item.count > other_item.count ){
+                return 1;
+              }
+              if ( item.count === other_item.count ){
+                return getComplianceStr(item) - getComplianceStr(other_item)
+              }
+            })
+          },
+          sortByBadgeDesc() {
+            // watch out for in-place operation reverse
+            this.sortByBadgeAsc()
+            this.results = this.results.reverse()
+          },
+          sortByCountAsc() {
+            this.results = this.results.sort((item, other_item) => {return item.count - other_item.count})
+          },
+          sortByCountDesc() {
+            this.results = this.results.sort((item, other_item) => {return other_item.count - item.count})
+          },
+          sortByUrlAsc() {
+            this.results = this.results.sort((item, other_item) => {
+              if ( item.url < other_item.url ){
+                return -1;
+              }
+              if ( item.url > other_item.url ){
+                return 1;
+              }
+              return 0;
+            })
+          },
+          sortByUrlDesc() {
+            this.results = this.results.sort((item, other_item) => {
+              if ( item.url < other_item.url ){
+                return 1;
+              }
+              if ( item.url > other_item.url ){
+                return -1;
+              }
+              return 0;
+            })
+          }
+        }
+      }
+      Vue.createApp(RootComponent).mount('#app')
+
+    </script>
+  </body>
 
 </html>
