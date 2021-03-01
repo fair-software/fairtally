@@ -69,7 +69,7 @@ def cli(urls=None, output_file=None):
         write_as_html()
 
     else:
-        raise Exception("shouldnt happen")
+        raise Exception("Make sure the output file ends with '.html' or '.json'.")
 
 
 if __name__ == "__main__":
