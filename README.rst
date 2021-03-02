@@ -86,6 +86,25 @@ Run tests (including coverage) with:
 
   python setup.py test
 
+Usage
+-----
+
+RSD
+^^^
+
+To FAIR tally software on `Research Software Directory <https://github.com/research-software-directory/research-software-directory>`_ of Netherlands eScience Center.
+First create a list of repository URLs by calling RSD API and doing some data reshaping with `jq <https://stedolan.github.io/jq/>`_.
+
+.. code-block:: console
+
+  curl https://research-software.nl/api/software > software.json
+  cat software.json | jq '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
+
+Next run fairtally to generate a report.
+
+.. code-block:: console
+
+  fairtally --html report.html --input-file urls.txt
 
 Documentation
 *************
