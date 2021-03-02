@@ -41,7 +41,7 @@ setup(
     test_suite="tests",
     install_requires=[
         "click == 7.*",
-        "howfairis == 0.13.*",
+        "howfairis == 0.14.*",
         "jinja2 == 2.*",
         "tqdm == 4.*"
     ],
