@@ -98,7 +98,7 @@ First create a list of repository URLs by calling RSD API and doing some data re
 .. code-block:: console
 
   curl https://research-software.nl/api/software > software.json
-  cat software.json | jq '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
+  cat software.json | jq -r '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
 
 Next run fairtally to generate a report.
 
