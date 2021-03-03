@@ -1,200 +1,153 @@
+<!DOCTYPE html>
 <html>
+<!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.0.0-beta.8")
+  -->
 
-  <head>
-    <script src="https://unpkg.com/vue@3.0.6/dist/vue.global.prod.js" type="text/javascript"></script>
+<title>Fairtally results</title>
 
-    <style>
-    button {
-      color: #000;
-      padding-left: 1em;
-      padding-right: 1em;
-      padding-top: 0.4em;
-      padding-bottom: 0.4em;
-      margin-left: 0.2em;
-      margin-right: 0.2em;
-    }
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+    type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+</head>
 
-    table {
-      border-collapse: collapse;
-      border-spacing: 0px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 2em;
-    }
-    tr.data-row:nth-child(even) {
-    }
-    tr.data-row:nth-child(odd) {
-      background-color: #ddd;
-    }
-    tr.data-row:nth-child(odd) {
-      background-color: #ddd;
-    }
-    tr.data-row:last-child {
-      border-bottom: 1px solid #444;
-    }
-    tr.header-row, tr.button-row {
-      background: #444;
-      color: #fff;
-    }
-    th {
-      padding: 10px;
-      border-left: 1px solid #444;
-      border-right: 1px solid #444;
-    }
-    td {
-      padding: 10px;
-      border-left: 1px solid #444;
-      border-right: 1px solid #444;
-    }
-    td img{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .repo-url {
-      text-decoration: none;
-      color: #02F;
-    }
-    .repo-url:visited {
-      color: #529;
-    }
-    .repo-url:hover {
-      text-decoration: underline;
-    }
-    .col-compliance, .col-count, .col-badge {
-      text-align: center;
-      padding-left: 20px;
-      padding-right: 20px;
-      min-width: 100px;
-    }
+<body>
+  <div id="q-app" style="min-height: 100vh;">
+    <div class="q-pa-md">
+      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
 
-    </style>
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th auto-width></q-th>
+            <q-th
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            >
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+  
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td auto-width>
+              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
+            </q-td>
+            <q-td
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            >
+            <img v-if="col.name === 'badge'" :src="col.value"/>
+            <span v-else>{{ col.value }}</span>
+            </q-td>
+          </q-tr>
+          <q-tr v-show="props.expand" :props="props">
+            <q-td colspan="100%">
+              <div class="text-left">
+                <div>
+                  <span>Standard output:<span>
+                  <pre>{{ props.row.stdout }}</pre>
+                </div>
+                <div>
+                  <span>Standard error:<span>
+                  <pre>{{ props.row.stderr }}</pre>
+                </div>
+              </div>
+            </q-td>
+          </q-tr>
+        </template>
 
-  </head>
-
-  <body>
-    <div id="app">
-
-      <table>
-        <tr class="header-row">
-          <th class="col-url">url</th>
-          <th class="col-compliance">repository</th>
-          <th class="col-compliance">license</th>
-          <th class="col-compliance">registry</th>
-          <th class="col-compliance">citation</th>
-          <th class="col-compliance">checklist</th>
-          <th class="col-count">count</th>
-          <th class="col-badge">badge</th>
-        </tr>
-
-        <tr class="button-row">
-          <th class="col-url">
-            <button v-on:click=sortByUrlAsc type="button">Sort ascending</button>
-            <button v-on:click=sortByUrlDesc type="button">Sort descending</button>
-          </th>
-          <th class="col-compliance">&nbsp;</th>
-          <th class="col-compliance">&nbsp;</th>
-          <th class="col-compliance">&nbsp;</th>
-          <th class="col-compliance">&nbsp;</th>
-          <th class="col-compliance">&nbsp;</th>
-          <th class="col-count">
-            <button v-on:click=sortByCountAsc type="button">Sort ascending</button>
-            <button v-on:click=sortByCountDesc type="button">Sort descending</button>
-          </th>
-          <th class="col-badge">
-            <button v-on:click=sortByBadgeAsc type="button">Sort ascending</button>
-            <button v-on:click=sortByBadgeDesc type="button">Sort descending</button>
-          </th>
-        </tr>
-
-        <tr class="data-row" v-for="item in results" key={{item.url}}>
-          <td class="col-url"><a v-bind:href="item.url" class="repo-url">{{item.url}}</a></td>
-          <td class="col-compliance" >{{item.repository? "&bull;" : "F"}}</td>
-          <td class="col-compliance" >{{item.license? "&bull;" : "F"}}</td>
-          <td class="col-compliance" >{{item.registry? "&bull;" : "F"}}</td>
-          <td class="col-compliance" >{{item.citation? "&bull;" : "F"}}</td>
-          <td class="col-compliance" >{{item.checklist? "&bull;" : "F"}}</td>
-          <td class="col-count">{{item.count}}</td>
-          <td class="col-badge"><img v-bind:src="item.badge"></td>
-        </tr>
-
-      </table>
-
+      </q-table>
     </div>
+  </div>
 
-    <script>
+  <!-- Add the following at the end of your body tag -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.umd.prod.js"></script>
 
-      const getData = () => {
+  <script>
+
+    function complianceFormatter(compliance) {
+      return compliance ? '✓' : '×';
+    }
+
+    const columns = [
+      {
+        name: 'url',
+        required: true,
+        label: 'url',
+        field: 'url',
+        sortable: true,
+        align: 'left'
+      },
+      {
+        name: 'repository',
+        required: true,
+        label: 'repository',
+        field: 'repository',
+        sortable: true,
+        format: complianceFormatter,
+
+      }, {
+        name: 'license',
+        required: true,
+        label: 'license',
+        field: 'license',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'registry',
+        required: true,
+        label: 'registry',
+        field: 'registry',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'citation',
+        required: true,
+        label: 'citation',
+        field: 'citation',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'checklist',
+        required: true,
+        label: 'checklist',
+        field: 'checklist',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'count',
+        required: true,
+        label: 'count',
+        field: 'count',
+        sortable: true
+      }, {
+        name: 'badge',
+        required: true,
+        label: 'badge',
+        field: 'badge',
+      },
+    ];
+    const rows = {{python inserts the data here}};
+    
+    const app = Vue.createApp({
+      setup() {
         return {
-          results:
-            {{python inserts the data here}}
+          columns,
+          rows
         }
       }
+    })
 
-      const RootComponent = {
-        data() {
-          return getData()
-        },
-        methods: {
-          sortByBadgeAsc() {
-            const getComplianceStr = (item) => {
-              return item.repository? "1": "0" +
-                     item.license? "1": "0" +
-                     item.registry? "1": "0" +
-                     item.citation? "1": "0" +
-                     item.checklist? "1": "0"
-            }
+    app.use(Quasar, { config: {} })
+    app.mount('#q-app')
 
-            this.results = this.results.sort((item, other_item) => {
-              if ( item.count < other_item.count ){
-                return -1;
-              }
-              if ( item.count > other_item.count ){
-                return 1;
-              }
-              if ( item.count === other_item.count ){
-                return getComplianceStr(item) - getComplianceStr(other_item)
-              }
-            })
-          },
-          sortByBadgeDesc() {
-            // watch out for in-place operation reverse
-            this.sortByBadgeAsc()
-            this.results = this.results.reverse()
-          },
-          sortByCountAsc() {
-            this.results = this.results.sort((item, other_item) => {return item.count - other_item.count})
-          },
-          sortByCountDesc() {
-            this.results = this.results.sort((item, other_item) => {return other_item.count - item.count})
-          },
-          sortByUrlAsc() {
-            this.results = this.results.sort((item, other_item) => {
-              if ( item.url < other_item.url ){
-                return -1;
-              }
-              if ( item.url > other_item.url ){
-                return 1;
-              }
-              return 0;
-            })
-          },
-          sortByUrlDesc() {
-            this.results = this.results.sort((item, other_item) => {
-              if ( item.url < other_item.url ){
-                return 1;
-              }
-              if ( item.url > other_item.url ){
-                return -1;
-              }
-              return 0;
-            })
-          }
-        }
-      }
-      Vue.createApp(RootComponent).mount('#app')
-
-    </script>
-  </body>
+  </script>
+</body>
 
 </html>
