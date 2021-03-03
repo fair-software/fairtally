@@ -11,27 +11,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: lint .github/ directory
-        uses: docker://github/super-linter:v3
+        uses: github/super-linter@v3
         env:
           VALIDATE_ALL_CODEBASE: true
           FILTER_REGEX_INCLUDE: /github/workspace/.github/.*
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: lint the code
-        uses: docker://github/super-linter:v3
+        uses: github/super-linter@v3
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
           VALIDATE_CSS: true
           VALIDATE_DOCKERFILE: true
-          VALIDATE_EDITORCONFIG: true
+#          VALIDATE_EDITORCONFIG: false # not smart enough for nested indentation
           VALIDATE_HTML: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_JSON: true
           VALIDATE_JSX: true
           VALIDATE_MARKDOWN: true
           VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_ISORT: true
+#          VALIDATE_PYTHON_BLACK: false
+#          VALIDATE_PYTHON_ISORT: false # TODO isort is not using config from setup.cfg
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_TSX: true
           VALIDATE_TYPESCRIPT_ES: true
           VALIDATE_YAML: true
           FILTER_REGEX_INCLUDE: /github/workspace/.*
+#          VALIDATE_SHELL_SHFMT: false # TODO conflicts with editorconfig

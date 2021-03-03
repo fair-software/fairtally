@@ -57,6 +57,7 @@ setup(
             "pytest-runner",
             "pytest",
             "recommonmark",
+            "requests_mock",
             "sphinx_rtd_theme",
             "sphinx-click",
             "sphinx",
