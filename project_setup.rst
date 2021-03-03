@@ -71,7 +71,7 @@ Testing and code coverage
 
   - `PyTest introduction <http://pythontesting.net/framework/pytest/pytest-introduction/>`_
 
-* Tests can be run with ``python setup.py test``
+* Tests can be run with ``pytest``
 
   - This is configured in ``setup.py`` and ``setup.cfg``
 
