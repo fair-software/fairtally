@@ -20,7 +20,6 @@ jobs:
         uses: github/super-linter@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: false
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
           VALIDATE_CSS: true
@@ -32,7 +31,7 @@ jobs:
           VALIDATE_JSX: true
           VALIDATE_MARKDOWN: true
           VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_BLACK: false
+#          VALIDATE_PYTHON_BLACK: false
 #          VALIDATE_PYTHON_ISORT: false # TODO isort is not using config from setup.cfg
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_TSX: true
