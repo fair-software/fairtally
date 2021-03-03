@@ -66,7 +66,6 @@ Testing and code coverage
 * The ``tests`` folder contains:
 
   - Example tests that you should replace with your own meaningful tests (file: ``test_fairtally``)
-  - A test that checks whether your code conforms to the Python style guide (PEP 8) (file: ``test_lint.py``)
 
 * The testing framework used is `PyTest <https://pytest.org>`_
 
