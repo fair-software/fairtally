@@ -5,7 +5,6 @@ import click
 from howfairis import Checker
 from howfairis import Compliance
 from howfairis import Repo
-from jinja2 import Template
 from tqdm import tqdm
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
@@ -29,10 +28,10 @@ def cli(urls=None, output_file_html=None, output_file_json=None):
         parent = Path(__file__).parent
         template_file = parent / "data" / "index.html.template"
         with open(template_file) as f:
-            template = Template(f.read())
-        s = template.render(results=results)
+            template_str = f.read()
+        report = template_str.replace("{{python inserts the data here}}", json.dumps(results))
         with output_file_html:
-            output_file_html.write(s)
+            output_file_html.write(report)
 
     if len(urls) == 0:
         print("No URLs provided, aborting.")

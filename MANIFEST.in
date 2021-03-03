@@ -1,2 +1,4 @@
+include CITATION.cff
 include LICENSE
 include README.rst
+include fairtally/data/index.html.template
