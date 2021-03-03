@@ -4,10 +4,8 @@ echo "Script $0 triggered ..."
 echo "Starting prospector analysis ..."
 
 # quietly run prospector
-prospector 1>/dev/null
-
 # use return code to abort commit if necessary
-if [ $? != "0" ]; then
+if ! prospector 1>/dev/null; then
     echo "Commit aborted. Run 'prospector' to see the errors."
     exit 1
 fi
@@ -16,13 +14,10 @@ fi
 echo "Starting isort analysis ..."
 
 # recursively run isort on fairtally/ directory, don't try to automatically fix anything
-isort --recursive --check-only fairtally
-
-if [ $? != "0" ]; then
+if ! isort --recursive --check-only fairtally; then
     echo "Commit aborted."
     exit 1
 fi
 
 echo "Pre-commit checks completed successfully."
 exit 0
-
