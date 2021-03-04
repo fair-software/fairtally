@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.0.0-beta.8")
+  -->
+
+<head>
+<title>Fairtally results</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+    type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="q-app" style="min-height: 100vh;">
+    <div class="q-pa-md">
+      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
+
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th auto-width></q-th>
+            <q-th
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            >
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+  
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td auto-width>
+              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
+            </q-td>
+            <q-td
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            >
+            <img v-if="col.name === 'badge'" :src="col.value"/>
+            <span v-else>{{ col.value }}</span>
+            </q-td>
+          </q-tr>
+          <q-tr v-show="props.expand" :props="props">
+            <q-td colspan="100%">
+              <div class="text-left">
+                <div>
+                  <span>Standard output:<span>
+                  <pre>{{ props.row.stdout }}</pre>
+                </div>
+                <div>
+                  <span>Standard error:<span>
+                  <pre>{{ props.row.stderr }}</pre>
+                </div>
+              </div>
+            </q-td>
+          </q-tr>
+        </template>
+
+      </q-table>
+    </div>
+  </div>
+
+  <!-- Add the following at the end of your body tag -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.umd.prod.js"></script>
+
+  <script>
+
+    function complianceFormatter(compliance) {
+      return compliance ? '✓' : '×';
+    }
+
+    const columns = [
+      {
+        name: 'url',
+        required: true,
+        label: 'url',
+        field: 'url',
+        sortable: true,
+        align: 'left'
+      },
+      {
+        name: 'repository',
+        required: true,
+        label: 'repository',
+        field: 'repository',
+        sortable: true,
+        format: complianceFormatter,
+
+      }, {
+        name: 'license',
+        required: true,
+        label: 'license',
+        field: 'license',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'registry',
+        required: true,
+        label: 'registry',
+        field: 'registry',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'citation',
+        required: true,
+        label: 'citation',
+        field: 'citation',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'checklist',
+        required: true,
+        label: 'checklist',
+        field: 'checklist',
+        sortable: true,
+        format: complianceFormatter,
+      }, {
+        name: 'count',
+        required: true,
+        label: 'count',
+        field: 'count',
+        sortable: true
+      }, {
+        name: 'badge',
+        required: true,
+        label: 'badge',
+        field: 'badge',
+      },
+    ];
+    const rows = [{"url": "https://github.com/fair-software/fairtally", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow", "repository": true, "license": true, "registry": true, "citation": true, "checklist": false, "count": 4, "stdout": "", "stderr": "/home/erikt/software/howfairis/howfairis/workarounds/remove_comments_rst.py:5: UserWarning: Unable to ignore comments in RestructuredText format of README.rst, checks will also see comments\n  warnings.warn(\"Unable to ignore comments in RestructuredText format of {0}, checks will also see comments\".format(fname))\n"}, {"url": "https://github.com/fair-software/howfairis", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green", "repository": true, "license": true, "registry": true, "citation": true, "checklist": true, "count": 5, "stdout": "", "stderr": ""}];
+    
+    const app = Vue.createApp({
+      setup() {
+        return {
+          columns,
+          rows
+        }
+      }
+    })
+
+    app.use(Quasar, { config: {} })
+    app.mount('#q-app')
+
+  </script>
+</body>
+
+</html>

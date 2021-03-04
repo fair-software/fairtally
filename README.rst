@@ -63,8 +63,7 @@
 fairtally
 ################################################################################
 
-Make a report based on howfairis results
-
+Python application to analyze multiple GitHub and GitLab repositories compliance with the `fair-software.eu <fair-software.eu>`_ recommendations.
 
 The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
 
@@ -75,17 +74,26 @@ To install fairtally, do:
 
 .. code-block:: console
 
-  git clone https://github.com/fair-software/fairtally.git
-  cd fairtally
-  pip install .
+  pip install git+https://github.com/fair-software/fairtally
 
 
-Run tests (including coverage) with:
+Apply fairtally to your favorite repositories like this:
 
 .. code-block:: console
 
-  python setup.py test
+  fairtally --html tally.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
 
+Then open the analysis in a web browser, for example Firefox:
+
+.. code-block:: console
+
+  firefox tally.html
+
+The analysis will look something like this:
+
+.. image:: docs/_static/fairtally_example.png
+
+You can sort the table by clicking on the table headers. The purple plus signs on the left provide access to log messages of fairtally.
 
 Documentation
 *************
@@ -123,3 +131,13 @@ Credits
 *******
 
 This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+
+
+Instructions for developers
+***************************
+
+Run tests (including coverage) with:
+
+.. code-block:: console
+
+  python setup.py test
