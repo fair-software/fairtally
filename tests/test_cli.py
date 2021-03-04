@@ -34,13 +34,35 @@ def mocked_internet():
 def invoke_cli(mocked_internet):
     runner = CliRunner()
 
-    def _invoker(args):
+    def _invoker(args, **kwargs):
         with mocked_internet:
-            return runner.invoke(cli, args, catch_exceptions=False)
+            return runner.invoke(cli, args, catch_exceptions=False, **kwargs)
 
     return _invoker
 
 
+def test_nourl(invoke_cli):
+    result = invoke_cli("")
+    assert "No URLs provided, aborting." in result.output
+
+
 def test_singleurl_nooptions(invoke_cli):
     result = invoke_cli("https://github.com/fair-software/repo1")
+    assert "fairtally progress" in result.output
+
+
+def test_input_from_file(invoke_cli, tmp_path):
+    my_input_file = tmp_path / 'urls.txt'
+    my_input_file.write_text("https://github.com/fair-software/repo1\n")
+
+    result = invoke_cli(["--input-file", str(my_input_file)])
+
+    assert "fairtally progress" in result.output
+
+
+def test_input_from_stdin(invoke_cli):
+    stdin = "https://github.com/fair-software/repo1\n"
+
+    result = invoke_cli(["--input-file", "-"], input=stdin)
+
     assert "fairtally progress" in result.output
