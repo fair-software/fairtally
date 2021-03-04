@@ -18,7 +18,10 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
 @click.option("--json", "output_file_json",
               help="Filename of where to write the results as JSON.",
               default=None, type=click.File("wt"))
-def cli(urls=None, output_file_html=None, output_file_json=None):
+@click.option("--input-file", "-i", "input_file",
+              help="Check URLs in file. One URL per line. Use `-` to read from standard input.",
+              default=None, type=click.File('r'))
+def cli(urls=None, output_file_html=None, output_file_json=None, input_file=None):
 
     def write_as_json():
         with output_file_json:
@@ -33,13 +36,15 @@ def cli(urls=None, output_file_html=None, output_file_json=None):
         with output_file_html:
             output_file_html.write(report)
 
-    if len(urls) == 0:
+    all_urls = merge_urls(urls, input_file)
+
+    if len(all_urls) == 0:
         print("No URLs provided, aborting.")
         return
 
     results = list()
 
-    url_progressbar = tqdm(urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
+    url_progressbar = tqdm(all_urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
     current_value = tqdm(total=0, bar_format="{desc}", position=1)
     for url in url_progressbar:
         stderr_buffer = io.StringIO()
@@ -69,6 +74,16 @@ def cli(urls=None, output_file_html=None, output_file_json=None):
 
     if output_file_html is not None:
         write_as_html()
+
+
+def merge_urls(urls, input_file):
+    all_urls = list(urls)
+    if input_file is not None:
+        for line in input_file:
+            url = line.strip()
+            if url:
+                all_urls.append(url)
+    return all_urls
 
 
 if __name__ == "__main__":
