@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
-from typing import TextIO, List
+from typing import TextIO, List, Set
 
 
-def merge_urls(urls: List[str], input_file: TextIO):
+def merge_urls(urls: Set[str], input_file: TextIO) -> List[str]:
     all_urls = list(urls)
     if input_file is not None:
         for line in input_file:
@@ -13,7 +13,7 @@ def merge_urls(urls: List[str], input_file: TextIO):
     return all_urls
 
 
-def write_as_html(results, output_file_html):
+def write_as_html(results, output_file_html: TextIO):
     parent = Path(__file__).parent
     template_file = parent / "data" / "index.html.template"
     with open(template_file) as f:
@@ -23,6 +23,6 @@ def write_as_html(results, output_file_html):
         output_file_html.write(report)
 
 
-def write_as_json(results, output_file_json):
+def write_as_json(results, output_file_json: TextIO):
     with output_file_json:
         json.dump(results, output_file_json, sort_keys=True)
