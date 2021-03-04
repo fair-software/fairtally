@@ -7,7 +7,9 @@ from howfairis import Repo
 from tqdm import tqdm
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
-from fairtally.utils import merge_urls, write_as_json, write_as_html
+from fairtally.utils import merge_urls
+from fairtally.utils import write_as_html
+from fairtally.utils import write_as_json
 
 
 @click.command()

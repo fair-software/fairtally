@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
-from typing import TextIO, List, Set
+from typing import List
+from typing import Set
+from typing import TextIO
 
 
 def merge_urls(urls: Set[str], input_file: TextIO) -> List[str]:
