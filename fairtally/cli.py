@@ -1,6 +1,5 @@
 import io
 import json
-from pathlib import Path
 import click
 from howfairis import Checker
 from howfairis import Compliance
@@ -8,6 +7,7 @@ from howfairis import Repo
 from tqdm import tqdm
 from fairtally.get_badge_color import get_badge_color
 from fairtally.redirect_stdout_stderr import RedirectStdStreams
+from fairtally.utils import merge_urls, write_as_json, write_as_html
 
 
 @click.command()
@@ -22,20 +22,6 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
               help="Check URLs in file. One URL per line. Use `-` to read from standard input.",
               default=None, type=click.File('r'))
 def cli(urls=None, output_file_html=None, output_file_json=None, input_file=None):
-
-    def write_as_json():
-        with output_file_json:
-            json.dump(results, output_file_json, sort_keys=True)
-
-    def write_as_html():
-        parent = Path(__file__).parent
-        template_file = parent / "data" / "index.html.template"
-        with open(template_file) as f:
-            template_str = f.read()
-        report = template_str.replace("{{python inserts the data here}}", json.dumps(results))
-        with output_file_html:
-            output_file_html.write(report)
-
     all_urls = merge_urls(urls, input_file)
 
     if len(all_urls) == 0:
@@ -70,20 +56,10 @@ def cli(urls=None, output_file_html=None, output_file_json=None, input_file=None
         print(json.dumps(results))
 
     if output_file_json is not None:
-        write_as_json()
+        write_as_json(results, output_file_json)
 
     if output_file_html is not None:
-        write_as_html()
-
-
-def merge_urls(urls, input_file):
-    all_urls = list(urls)
-    if input_file is not None:
-        for line in input_file:
-            url = line.strip()
-            if url:
-                all_urls.append(url)
-    return all_urls
+        write_as_html(results, output_file_html)
 
 
 if __name__ == "__main__":
