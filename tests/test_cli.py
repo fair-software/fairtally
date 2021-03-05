@@ -44,7 +44,7 @@ def invoke_cli(mocked_internet, cli_runner):
     return _invoker
 
 
-def test_nourl(invoke_cli):
+def test_no_url(invoke_cli):
     result = invoke_cli("")
 
     assert "No URLs provided, aborting." in result.stderr
@@ -56,7 +56,7 @@ def read_file(filename):
         return f.read()
 
 
-def test_singleurl_nooptions(invoke_cli, cli_runner: CliRunner):
+def test_single_url_no_options(invoke_cli, cli_runner: CliRunner):
     with cli_runner.isolated_filesystem():
         url = "https://github.com/fair-software/repo1"
         result = invoke_cli(url)
@@ -67,7 +67,7 @@ def test_singleurl_nooptions(invoke_cli, cli_runner: CliRunner):
         assert url in read_file("tally.html")
 
 
-def test_input_from_file2stdout(invoke_cli, tmp_path):
+def test_input_from_file_to_stdout(invoke_cli, tmp_path):
     my_input_file = tmp_path / 'urls.txt'
     my_input_file.write_text("https://github.com/fair-software/repo1\n")
 
@@ -79,7 +79,7 @@ def test_input_from_file2stdout(invoke_cli, tmp_path):
     assert "https://github.com/fair-software/repo1" in result.stdout
 
 
-def test_input_from_stdin2stdout(invoke_cli):
+def test_input_from_stdin_to_stdout(invoke_cli):
     stdin = "https://github.com/fair-software/repo1\n"
 
     result = invoke_cli(["--input-file", "-", "--output-file", "-"], input=stdin)
@@ -101,7 +101,7 @@ def test_json_format(invoke_cli, cli_runner):
         assert url in read_file("tally.json")
 
 
-def test_json_format2stdout(invoke_cli):
+def test_json_format_to_stdout(invoke_cli):
     url = "https://github.com/fair-software/repo1"
     result = invoke_cli([url, "--format", "json", "--output-file", "-"])
 
