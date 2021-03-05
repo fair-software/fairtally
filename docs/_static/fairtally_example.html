@@ -15,7 +15,7 @@
 <body>
   <div id="q-app" style="min-height: 100vh;">
     <div class="q-pa-md">
-      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
+      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" :pagination.sync="pagination" >
 
         <template v-slot:header="props">
           <q-tr :props="props">
@@ -36,7 +36,7 @@
               <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
             </q-td>
             <q-td>
-              <span>{{ props.row.url }}</span>
+              <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
             </q-td>
             <q-td>
               <compliance :status="props.row.repository" />
@@ -151,7 +151,10 @@
       setup() {
         return {
           columns,
-          rows
+          rows,
+          pagination: {
+            rowsPerPage: 0
+          },
         }
       }
     })
