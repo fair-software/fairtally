@@ -68,10 +68,6 @@ Running the linters requires an activated virtualenv with the development tools 
     # recursively fix import style for the fairtally module only
     isort --recursive fairtally
 
-.. code:: shell
-
-    # requires activated virtualenv with development tools
-    prospector && isort --recursive --check-only fairtally
 
 You can enable automatic linting with ``prospector`` and ``isort`` on commit like so:
 
