@@ -1,3 +1,9 @@
+################################################################################
+fairtally
+################################################################################
+
+Python application to analyze multiple GitHub and GitLab repositories compliance with the `fair-software.eu <fair-software.eu>`_ recommendations.
+
 .. list-table::
    :widths: 25 25
    :header-rows: 1
@@ -18,8 +24,6 @@
      -
    * - Continuous integration
      - |Python Build| |PyPI Publish|
-
-(Customize these badges with your own links, and check https://shields.io/ or https://badgen.net/ to see which other badges are available.)
 
 .. |GitHub Badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/fairtally
@@ -59,15 +63,6 @@
    :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22PyPI%22
    :alt: PyPI Publish
 
-################################################################################
-fairtally
-################################################################################
-
-Make a report based on howfairis results
-
-
-The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
-
 Installation
 ------------
 
@@ -75,24 +70,78 @@ To install fairtally, do:
 
 .. code-block:: console
 
-  git clone https://github.com/fair-software/fairtally.git
-  cd fairtally
-  pip install .
+  pip3 install fairtally
 
+Usage
+-----
 
-Run tests (including coverage) with:
+To use fairtally to check the compliance of multiple repositories, one can use the command below.
 
 .. code-block:: console
 
-  python setup.py test
+  fairtally --html tally.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
 
+This command will generate a html report called `tally.html` which will contain the results of the checks for each repository.
+
+Then open the analysis in a web-browser, for example Firefox:
+
+.. code-block:: console
+
+  firefox tally.html
+
+The report will look similar to the example below:
+
+.. image:: docs/_static/fairtally_example.png
+  :target: https://fair-software.github.io/fairtally/_static/fairtally_example.html
+
+You can sort the table by clicking on the table headers. The purple plus signs provide access to log messages of each repository.
+
+Research Software Directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To FAIR tally the software listed on the `Research Software Directory of the Netherlands eScience Center <https://research-software.nl/>`_.
+
+First download a list of software by calling `RSD API <https://github.com/research-software-directory/research-software-directory/blob/master/docs/documentation-for-developers.md#api>`_
+
+.. code-block:: console
+
+  curl https://research-software.nl/api/software > software.json
+
+Next, extract the repository URLs with `jq <https://stedolan.github.io/jq/>`_.
+
+.. code-block:: console
+
+  cat software.json | jq -r '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
+
+Finally run fairtally to generate a report.
+
+.. code-block:: console
+
+  fairtally --html report.html --input-file urls.txt
 
 Documentation
 *************
 
-.. _README:
+Command line interface help can be retrieved with
 
-Include a link to your project's full documentation here.
+.. code-block:: console
+
+  fairtally --help
+
+The output of the command will be something like:
+
+.. code-block:: console
+
+  Usage: fairtally [OPTIONS] [URLS]...
+
+  Options:
+    --html FILENAME            Filename of where to write the results as HTML.
+    --json FILENAME            Filename of where to write the results as JSON.
+    -i, --input-file FILENAME  Check URLs in file. One URL per line. Use `-` to
+                              read from standard input.
+
+    --help                     Show this message and exit.
+
 
 Contributing
 ************
@@ -117,9 +166,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-
-
 Credits
 *******
 
 This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+
+Instructions for developers
+***************************
+
+The developer documentation can be found in `README.dev.rst <README.dev.rst>`_.
