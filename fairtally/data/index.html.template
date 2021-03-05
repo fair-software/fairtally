@@ -29,19 +29,35 @@
             </q-th>
           </q-tr>
         </template>
-  
+
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td auto-width>
               <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
             </q-td>
-            <q-td
-              v-for="col in props.cols"
-              :key="col.name"
-              :props="props"
-            >
-            <img v-if="col.name === 'badge'" :src="col.value"/>
-            <span v-else>{{ col.value }}</span>
+            <q-td>
+              <span>{{ props.row.url }}</span>
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.repository" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.license" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.registry" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.citation" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.checklist" />
+            </q-td>
+            <q-td>
+              <span>{{ props.row.count }}</span>
+            </q-td>
+            <q-td>
+              <img :src="props.row.badge"/>
             </q-td>
           </q-tr>
           <q-tr v-show="props.expand" :props="props">
@@ -70,10 +86,6 @@
 
   <script>
 
-    function complianceFormatter(compliance) {
-      return compliance ? '✓' : '×';
-    }
-
     const columns = [
       {
         name: 'url',
@@ -89,56 +101,70 @@
         label: 'repository',
         field: 'repository',
         sortable: true,
-        format: complianceFormatter,
-
+        align: 'center'
       }, {
         name: 'license',
         required: true,
         label: 'license',
         field: 'license',
         sortable: true,
-        format: complianceFormatter,
+        align: 'center'
       }, {
         name: 'registry',
         required: true,
         label: 'registry',
         field: 'registry',
         sortable: true,
-        format: complianceFormatter,
+        align: 'center'
       }, {
         name: 'citation',
         required: true,
         label: 'citation',
         field: 'citation',
         sortable: true,
-        format: complianceFormatter,
+        align: 'center'
       }, {
         name: 'checklist',
         required: true,
         label: 'checklist',
         field: 'checklist',
         sortable: true,
-        format: complianceFormatter,
+        align: 'center'
       }, {
         name: 'count',
         required: true,
         label: 'count',
         field: 'count',
-        sortable: true
+        sortable: true,
+        align: 'center'
       }, {
         name: 'badge',
         required: true,
         label: 'badge',
         field: 'badge',
+        align: 'center'
       },
     ];
     const rows = {{python inserts the data here}};
-    
+
     const app = Vue.createApp({
       setup() {
         return {
           columns,
           rows
+        }
+      }
+    })
+
+    app.component('compliance', {
+      props: ['status'],
+      template: `<span :style="'color:' + symbolColor">{{ symbol }}</span>`,
+      computed: {
+        symbol() {
+          return this.status ? '✓' : '×'
+        },
+        symbolColor() {
+          return this.status ? 'green' : 'red'
         }
       }
     })
