@@ -72,7 +72,7 @@ To install fairtally, do:
 
 .. code-block:: console
 
-  pip install git+https://github.com/fair-software/fairtally
+  pip3 install fairtally
 
 Usage
 -----
