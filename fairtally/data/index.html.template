@@ -57,18 +57,18 @@
               <span>{{ props.row.count }}</span>
             </q-td>
             <q-td>
-              <img :src="props.row.badge"/>
+              <img :src="props.row.badge" alt="FAIR software badge"/>
             </q-td>
           </q-tr>
           <q-tr v-show="props.expand" :props="props">
             <q-td colspan="100%">
               <div class="text-left">
                 <div>
-                  <span>Standard output:<span>
+                  <span>Standard output:</span>
                   <pre>{{ props.row.stdout }}</pre>
                 </div>
                 <div>
-                  <span>Standard error:<span>
+                  <span>Standard error:</span>
                   <pre>{{ props.row.stderr }}</pre>
                 </div>
               </div>
