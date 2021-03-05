@@ -20,6 +20,8 @@
         :rows="rows"
         :columns="columns"
         :filter="filter"
+        :filter-method="filterUrl"
+        :pagination.sync="pagination"
         row-key="url"
       >
 
@@ -30,7 +32,6 @@
             </template>
           </q-input>
         </template>
-      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" :pagination.sync="pagination" >
 
         <template v-slot:header="props">
           <q-tr :props="props">
@@ -171,6 +172,20 @@
           pagination: {
             rowsPerPage: 0
           },
+        }
+      },
+      methods: {
+        filterUrl (rows, terms, cols, cellValue) {
+          const lowerTerms = terms ? terms.toLowerCase() : ''
+          return rows.filter(
+            row => cols.filter( col =>
+              col.name === 'url'
+            ).some(col => {
+              const val = cellValue(col, row) + ''
+              const haystack = (val === 'undefined' || val === 'null') ? '' : val.toLowerCase()
+              return haystack.indexOf(lowerTerms) !== -1
+            })
+          )
         }
       }
     })
