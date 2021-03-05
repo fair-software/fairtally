@@ -92,6 +92,7 @@ Then open the analysis in a web browser, for example Firefox:
 The analysis will look something like this:
 
 .. image:: docs/_static/fairtally_example.png
+  :target: https://fair-software.github.io/fairtally/_static/fairtally_example.html
 
 You can sort the table by clicking on the table headers. The purple plus signs on the left provide access to log messages of fairtally.
 
