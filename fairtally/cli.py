@@ -1,5 +1,5 @@
 import io
-import json
+import sys
 import click
 from howfairis import Checker
 from howfairis import Compliance
@@ -21,16 +21,16 @@ from fairtally.utils import write_as_json
               help="Check URLs in file. One URL per line. Use `-` to read from standard input.",
               default=None,
               type=click.File('rt'))
-@click.option("--format", "format",
+@click.option("--format", "output_format",
               help="Format of output",
               default="html", show_default=True,
               type=click.Choice(("html", "json")))
-def cli(urls, input_file, format, output_filename):
+def cli(urls, input_file, output_format, output_filename):
     all_urls = merge_urls(urls, input_file)
 
     if len(all_urls) == 0:
         click.echo("No URLs provided, aborting.", err=True)
-        exit(1)
+        sys.exit(1)
 
     results = list()
 
@@ -56,20 +56,16 @@ def cli(urls, input_file, format, output_filename):
         current_value.set_description_str()
         results.append(d)
 
-    if output_filename == 'tally.html' and format == 'json':
+    if output_filename == 'tally.html' and output_format == 'json':
         output_filename = 'tally.json'
 
     with click.open_file(output_filename, mode='wt') as output_file:
-        if format == 'html':
+        if output_format == 'html':
             write_as_html(results, output_file)
-        elif format == 'json':
+        elif output_format == 'json':
             write_as_json(results, output_file)
         else:
             click.echo("Unsupported format", err=True)
-            exit(1)
+            sys.exit(1)
 
     click.echo(f'Completed checks on {len(all_urls)} URLs results written to {output_filename}', err=True)
-
-
-if __name__ == "__main__":
-    cli()
