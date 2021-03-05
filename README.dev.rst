@@ -57,14 +57,14 @@ Running the linters requires an activated virtualenv with the development tools 
     # linter
     prospector
 
-    # recursively check import style for the howfairis module only
+    # recursively check import style for the fairtally module only
     isort --recursive --check-only fairtally
 
     # recursively check import style for the fairtally module only and show
     # any proposed changes as a diff
     isort --recursive --check-only --diff fairtally
 
-    # recursively fix  import style for the howfairis module only
+    # recursively fix  import style for the fairtally module only
     isort --recursive fairtally
 
 .. code:: shell
