@@ -1,3 +1,9 @@
+################################################################################
+fairtally
+################################################################################
+
+Python application to analyze multiple GitHub and GitLab repositories compliance with the `fair-software.eu <fair-software.eu>`_ recommendations.
+
 .. list-table::
    :widths: 25 25
    :header-rows: 1
@@ -59,14 +65,6 @@
    :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22PyPI%22
    :alt: PyPI Publish
 
-################################################################################
-fairtally
-################################################################################
-
-Python application to analyze multiple GitHub and GitLab repositories compliance with the `fair-software.eu <fair-software.eu>`_ recommendations.
-
-The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
-
 Installation
 ------------
 
@@ -75,7 +73,6 @@ To install fairtally, do:
 .. code-block:: console
 
   pip install git+https://github.com/fair-software/fairtally
-
 
 Usage
 -----
@@ -141,16 +138,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-
-
 Credits
 *******
 
 This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
 
-
 Instructions for developers
 ***************************
+
+The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
 
 Run tests (including coverage) with:
 
