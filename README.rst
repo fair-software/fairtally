@@ -25,8 +25,6 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
    * - Continuous integration
      - |Python Build| |PyPI Publish|
 
-(Customize these badges with your own links, and check https://shields.io/ or https://badgen.net/ to see which other badges are available.)
-
 .. |GitHub Badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/fairtally
    :alt: GitHub Badge
@@ -104,6 +102,11 @@ Command line interface help can be retrieved with
 .. code-block:: console
 
   fairtally --help
+
+Which then shows something like:
+
+.. code-block:: console
+
   Usage: fairtally [OPTIONS] [URLS]...
 
   Options:
