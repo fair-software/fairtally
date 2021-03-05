@@ -75,24 +75,26 @@ To install fairtally, do:
 Usage
 -----
 
-Apply fairtally to your favorite repositories like this:
+To use fairtally to check the compliance of multiple repositories, one can use the command below.
 
 .. code-block:: console
 
   fairtally --html tally.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
 
-Then open the analysis in a web browser, for example Firefox:
+This command will generate a html report called `tally.html` which will contain the results of the checks for each repository.
+
+Then open the analysis in a web-browser, for example Firefox:
 
 .. code-block:: console
 
   firefox tally.html
 
-The analysis will look something like this:
+The report will look similar to the example below:
 
 .. image:: docs/_static/fairtally_example.png
   :target: https://fair-software.github.io/fairtally/_static/fairtally_example.html
 
-You can sort the table by clicking on the table headers. The purple plus signs on the left provide access to log messages of fairtally.
+You can sort the table by clicking on the table headers. The purple plus signs provide access to log messages of each repository.
 
 Research Software Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -126,7 +128,7 @@ Command line interface help can be retrieved with
 
   fairtally --help
 
-Which then shows something like:
+The output of the command will be something like:
 
 .. code-block:: console
 
@@ -172,10 +174,4 @@ This package was created with `Cookiecutter <https://github.com/audreyr/cookiecu
 Instructions for developers
 ***************************
 
-The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
-
-Run tests (including coverage) with:
-
-.. code-block:: console
-
-  python setup.py test
+The developer documentation can be found in `README.dev.rst <README.dev.rst>`_.
