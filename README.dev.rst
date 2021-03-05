@@ -65,7 +65,7 @@ Running the linters requires an activated virtualenv with the development tools 
     # any proposed changes as a diff
     isort --recursive --check-only --diff fairtally
 
-    # recursively fix  import style for the fairtally module only
+    # recursively fix import style for the fairtally module only
     isort --recursive fairtally
 
 .. code:: shell
