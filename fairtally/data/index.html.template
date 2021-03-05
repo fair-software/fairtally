@@ -15,7 +15,21 @@
 <body>
   <div id="q-app" style="min-height: 100vh;">
     <div class="q-pa-md">
-      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
+      <q-table
+        title="Fairtally results"
+        :rows="rows"
+        :columns="columns"
+        :filter="filter"
+        row-key="url"
+      >
+
+        <template v-slot:top-right>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search url">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
 
         <template v-slot:header="props">
           <q-tr :props="props">
@@ -85,7 +99,7 @@
   <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.umd.prod.js"></script>
 
   <script>
-
+    const { ref } = Vue
     const columns = [
       {
         name: 'url',
@@ -151,7 +165,8 @@
       setup() {
         return {
           columns,
-          rows
+          rows,
+          filter: ref('')
         }
       }
     })
