@@ -36,7 +36,7 @@
               <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
             </q-td>
             <q-td>
-              <span>{{ props.row.url }}</span>
+              <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
             </q-td>
             <q-td>
               <compliance :status="props.row.repository" />
