@@ -20,7 +20,7 @@ DEFAULT_OUTPUT_FILENAME = "tally.html"
               default=None,
               type=click.File("rt"))
 @click.option("--format", "output_format",
-              help="Format of output",
+              help="Format of output.",
               default="html", show_default=True,
               type=click.Choice(("html", "json")))
 def cli(urls, input_file, output_format, output_filename):

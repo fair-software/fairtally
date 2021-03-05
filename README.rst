@@ -79,7 +79,7 @@ To use fairtally to check the compliance of multiple repositories, one can use t
 
 .. code-block:: console
 
-  fairtally --html tally.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
+  fairtally https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
 
 This command will generate a html report called `tally.html` which will contain the results of the checks for each repository.
 
@@ -117,7 +117,7 @@ Finally run fairtally to generate a report.
 
 .. code-block:: console
 
-  fairtally --html report.html --input-file urls.txt
+  fairtally --output-file report.html --input-file urls.txt
 
 Documentation
 *************
@@ -135,13 +135,14 @@ The output of the command will be something like:
   Usage: fairtally [OPTIONS] [URLS]...
 
   Options:
-    --html FILENAME            Filename of where to write the results as HTML.
-    --json FILENAME            Filename of where to write the results as JSON.
+    -o, --output-file TEXT     Filename of where to write the results. Use `-`
+                               to write to standard out.  [default: tally.html]
+
     -i, --input-file FILENAME  Check URLs in file. One URL per line. Use `-` to
-                              read from standard input.
+                               read from standard input.
 
+    --format [html|json]       Format of output.  [default: html]
     --help                     Show this message and exit.
-
 
 Contributing
 ************
