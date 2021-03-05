@@ -47,7 +47,7 @@ Running the tests requires an activated virtualenv with the development tools in
     # unit tests with mocked representations of repository behavior
     pytest
 
-
+The test coverage report is available in `htmlcov/index.html`.
 Running linters locally
 -----------------------
 
