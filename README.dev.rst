@@ -46,7 +46,6 @@ Running the tests requires an activated virtualenv with the development tools in
 
     # unit tests with mocked representations of repository behavior
     pytest
-    pytest tests/
 
 
 Running linters locally
@@ -195,4 +194,3 @@ To push the image to DockerHub, run:
     docker push fairsoftware/fairtally:latest
 
 The new image and its tags should now be listed here https://hub.docker.com/r/fairsoftware/fairtally/tags?page=1&ordering=last_updated.
-
