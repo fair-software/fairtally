@@ -2,10 +2,11 @@
 =====================================
 
 If you're looking for user documentation, go `here <README.rst>`_.
-|
+
+
 The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
-|
-|
+
+
 
 Development install
 -------------------
