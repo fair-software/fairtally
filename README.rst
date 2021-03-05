@@ -77,6 +77,9 @@ To install fairtally, do:
   pip install git+https://github.com/fair-software/fairtally
 
 
+Usage
+-----
+
 Apply fairtally to your favorite repositories like this:
 
 .. code-block:: console
@@ -99,9 +102,21 @@ You can sort the table by clicking on the table headers. The purple plus signs o
 Documentation
 *************
 
-.. _README:
+Command line interface help can be retrieved with
 
-Include a link to your project's full documentation here.
+.. code-block:: console
+
+  fairtally --help
+  Usage: fairtally [OPTIONS] [URLS]...
+
+  Options:
+    --html FILENAME            Filename of where to write the results as HTML.
+    --json FILENAME            Filename of where to write the results as JSON.
+    -i, --input-file FILENAME  Check URLs in file. One URL per line. Use `-` to
+                              read from standard input.
+
+    --help                     Show this message and exit.
+
 
 Contributing
 ************
