@@ -15,7 +15,7 @@
 <body>
   <div id="q-app" style="min-height: 100vh;">
     <div class="q-pa-md">
-      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
+      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" :pagination.sync="pagination" >
 
         <template v-slot:header="props">
           <q-tr :props="props">
@@ -151,7 +151,10 @@
       setup() {
         return {
           columns,
-          rows
+          rows,
+          pagination: {
+            rowsPerPage: 0
+          },
         }
       }
     })
