@@ -89,18 +89,24 @@ Run tests (including coverage) with:
 Usage
 -----
 
-RSD
-^^^
+Research Software Directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To FAIR tally software on `Research Software Directory <https://github.com/research-software-directory/research-software-directory>`_ of Netherlands eScience Center.
-First create a list of repository URLs by calling RSD API and doing some data reshaping with `jq <https://stedolan.github.io/jq/>`_.
+To FAIR tally the software listed on the `Research Software Directory of the Netherlands eScience Center <https://research-software.nl/>`_.
+
+First download a list of software by calling `RSD API <https://github.com/research-software-directory/research-software-directory/blob/master/docs/documentation-for-developers.md#api>`_
 
 .. code-block:: console
 
   curl https://research-software.nl/api/software > software.json
+
+Next, extract the repository URLs with `jq <https://stedolan.github.io/jq/>`_.
+
+.. code-block:: console
+
   cat software.json | jq -r '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
 
-Next run fairtally to generate a report.
+Finally run fairtally to generate a report.
 
 .. code-block:: console
 
