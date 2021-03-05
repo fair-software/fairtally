@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.0.0-beta.8")
+  -->
+
+<head>
+<title>Fairtally results</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+    type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="q-app" style="min-height: 100vh;">
+    <div class="q-pa-md">
+      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" >
+
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th auto-width></q-th>
+            <q-th
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            >
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td auto-width>
+              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
+            </q-td>
+            <q-td>
+              <span>{{ props.row.url }}</span>
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.repository" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.license" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.registry" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.citation" />
+            </q-td>
+            <q-td>
+              <compliance :status="props.row.checklist" />
+            </q-td>
+            <q-td>
+              <span>{{ props.row.count }}</span>
+            </q-td>
+            <q-td>
+              <img :src="props.row.badge"/>
+            </q-td>
+          </q-tr>
+          <q-tr v-show="props.expand" :props="props">
+            <q-td colspan="100%">
+              <div class="text-left">
+                <div>
+                  <span>Standard output:<span>
+                  <pre>{{ props.row.stdout }}</pre>
+                </div>
+                <div>
+                  <span>Standard error:<span>
+                  <pre>{{ props.row.stderr }}</pre>
+                </div>
+              </div>
+            </q-td>
+          </q-tr>
+        </template>
+
+      </q-table>
+    </div>
+  </div>
+
+  <!-- Add the following at the end of your body tag -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.umd.prod.js"></script>
+
+  <script>
+
+    const columns = [
+      {
+        name: 'url',
+        required: true,
+        label: 'url',
+        field: 'url',
+        sortable: true,
+        align: 'left'
+      },
+      {
+        name: 'repository',
+        required: true,
+        label: 'repository',
+        field: 'repository',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'license',
+        required: true,
+        label: 'license',
+        field: 'license',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'registry',
+        required: true,
+        label: 'registry',
+        field: 'registry',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'citation',
+        required: true,
+        label: 'citation',
+        field: 'citation',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'checklist',
+        required: true,
+        label: 'checklist',
+        field: 'checklist',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'count',
+        required: true,
+        label: 'count',
+        field: 'count',
+        sortable: true,
+        align: 'center'
+      }, {
+        name: 'badge',
+        required: true,
+        label: 'badge',
+        field: 'badge',
+        align: 'center'
+      },
+    ];
+    const rows = {{python inserts the data here}};
+
+    const app = Vue.createApp({
+      setup() {
+        return {
+          columns,
+          rows
+        }
+      }
+    })
+
+    app.component('compliance', {
+      props: ['status'],
+      template: `<span :style="'color:' + symbolColor">{{ symbol }}</span>`,
+      computed: {
+        symbol() {
+          return this.status ? '✓' : '×'
+        },
+        symbolColor() {
+          return this.status ? 'green' : 'red'
+        }
+      }
+    })
+
+    app.use(Quasar, { config: {} })
+    app.mount('#q-app')
+
+  </script>
+</body>
+
+</html>
