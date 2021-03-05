@@ -100,6 +100,25 @@ The report will look similar to the example below:
 
 You can sort the table by clicking on the table headers. The purple plus signs provide access to log messages of each repository.
 
+Using Docker image
+------------------
+
+You can run fairtally Docker image using the command below.
+
+.. code:: console
+
+    docker pull fairsoftware/fairtally
+
+You can run fairtally Docker image using the command below.
+
+.. code:: console
+
+    docker run --rm fairsoftware/fairtally --help
+
+`--rm` argument will remove Docker container after execution.
+
+See developer documentation to learn how to modify the Docker image.
+
 Research Software Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
