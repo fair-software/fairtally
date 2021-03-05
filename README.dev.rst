@@ -78,3 +78,12 @@ You can enable automatic linting with ``prospector`` and ``isort`` on commit lik
 
     git config --local core.hooksPath .githooks
 
+Versioning
+----------
+
+Bumping the version across all files is done with bump2version, e.g.
+
+.. code:: shell
+
+    bump2version minor
+
