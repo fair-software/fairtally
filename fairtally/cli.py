@@ -14,21 +14,23 @@ from fairtally.utils import write_as_json
 
 @click.command()
 @click.argument("urls", nargs=-1)
-@click.option("--html", "output_file_html",
-              help="Filename of where to write the results as HTML.",
-              default=None, type=click.File("wt"))
-@click.option("--json", "output_file_json",
-              help="Filename of where to write the results as JSON.",
-              default=None, type=click.File("wt"))
+@click.option("--output-file", "-o", "output_filename",
+              help="Filename of where to write the results. Use `-` to write to standard out.",
+              default="tally.html", show_default=True)
 @click.option("--input-file", "-i", "input_file",
               help="Check URLs in file. One URL per line. Use `-` to read from standard input.",
-              default=None, type=click.File('r'))
-def cli(urls=None, output_file_html=None, output_file_json=None, input_file=None):
+              default=None,
+              type=click.File('rt'))
+@click.option("--format", "format",
+              help="Format of output",
+              default="html", show_default=True,
+              type=click.Choice(("html", "json")))
+def cli(urls, input_file, format, output_filename):
     all_urls = merge_urls(urls, input_file)
 
     if len(all_urls) == 0:
-        print("No URLs provided, aborting.")
-        return
+        click.echo("No URLs provided, aborting.", err=True)
+        exit(1)
 
     results = list()
 
@@ -54,14 +56,19 @@ def cli(urls=None, output_file_html=None, output_file_json=None, input_file=None
         current_value.set_description_str()
         results.append(d)
 
-    if output_file_json is None and output_file_html is None:
-        print(json.dumps(results))
+    if output_filename == 'tally.html' and format == 'json':
+        output_filename = 'tally.json'
 
-    if output_file_json is not None:
-        write_as_json(results, output_file_json)
+    with click.open_file(output_filename, mode='wt') as output_file:
+        if format == 'html':
+            write_as_html(results, output_file)
+        elif format == 'json':
+            write_as_json(results, output_file)
+        else:
+            click.echo("Unsupported format", err=True)
+            exit(1)
 
-    if output_file_html is not None:
-        write_as_html(results, output_file_html)
+    click.echo(f'Completed checks on {len(all_urls)} URLs results written to {output_filename}', err=True)
 
 
 if __name__ == "__main__":

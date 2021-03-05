@@ -31,38 +31,81 @@ def mocked_internet():
 
 
 @pytest.fixture
-def invoke_cli(mocked_internet):
-    runner = CliRunner()
+def cli_runner():
+    return CliRunner(mix_stderr=False)
 
+
+@pytest.fixture
+def invoke_cli(mocked_internet, cli_runner):
     def _invoker(args, **kwargs):
         with mocked_internet:
-            return runner.invoke(cli, args, catch_exceptions=False, **kwargs)
+            return cli_runner.invoke(cli, args, catch_exceptions=False, **kwargs)
 
     return _invoker
 
 
 def test_nourl(invoke_cli):
     result = invoke_cli("")
-    assert "No URLs provided, aborting." in result.output
+
+    assert "No URLs provided, aborting." in result.stderr
+    assert result.exit_code == 1
 
 
-def test_singleurl_nooptions(invoke_cli):
-    result = invoke_cli("https://github.com/fair-software/repo1")
-    assert "fairtally progress" in result.output
+def read_file(filename):
+    with open(filename, 'r') as f:
+        return f.read()
 
 
-def test_input_from_file(invoke_cli, tmp_path):
+def test_singleurl_nooptions(invoke_cli, cli_runner: CliRunner):
+    with cli_runner.isolated_filesystem():
+        url = "https://github.com/fair-software/repo1"
+        result = invoke_cli(url)
+
+        assert "fairtally progress" in result.stderr
+        assert "Completed checks on 1 URLs results written to tally.html" in result.stderr
+        assert result.exit_code == 0
+        assert url in read_file("tally.html")
+
+
+def test_input_from_file2stdout(invoke_cli, tmp_path):
     my_input_file = tmp_path / 'urls.txt'
     my_input_file.write_text("https://github.com/fair-software/repo1\n")
 
-    result = invoke_cli(["--input-file", str(my_input_file)])
+    result = invoke_cli(["--input-file", str(my_input_file), "--output-file", "-"])
 
-    assert "fairtally progress" in result.output
+    assert "fairtally progress" in result.stderr
+    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert result.exit_code == 0
+    assert "https://github.com/fair-software/repo1" in result.stdout
 
 
-def test_input_from_stdin(invoke_cli):
+def test_input_from_stdin2stdout(invoke_cli):
     stdin = "https://github.com/fair-software/repo1\n"
 
-    result = invoke_cli(["--input-file", "-"], input=stdin)
+    result = invoke_cli(["--input-file", "-", "--output-file", "-"], input=stdin)
 
-    assert "fairtally progress" in result.output
+    assert "fairtally progress" in result.stderr
+    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert result.exit_code == 0
+    assert "https://github.com/fair-software/repo1" in result.stdout
+
+
+def test_json_format(invoke_cli, cli_runner):
+    with cli_runner.isolated_filesystem():
+        url = "https://github.com/fair-software/repo1"
+        result = invoke_cli([url, "--format", "json"])
+
+        assert "fairtally progress" in result.stderr
+        assert "Completed checks on 1 URLs results written to tally.json" in result.stderr
+        assert result.exit_code == 0
+        assert url in read_file("tally.json")
+
+
+def test_json_format2stdout(invoke_cli):
+    url = "https://github.com/fair-software/repo1"
+    result = invoke_cli([url, "--format", "json", "--output-file", "-"])
+
+    assert "fairtally progress" in result.stderr
+    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert result.exit_code == 0
+    assert url in result.stdout
