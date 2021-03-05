@@ -167,7 +167,7 @@
         return {
           columns,
           rows,
-          filter: ref('')
+          filter: ref(''),
           pagination: {
             rowsPerPage: 0
           },
