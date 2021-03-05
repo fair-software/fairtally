@@ -158,7 +158,7 @@ Then upload to pypi.org with:
 GitHub
 ^^^^^^
 
-Don't forget to also make a release on GitHub.
+Don't forget to also `make a release on GitHub <https://github.com/fair-software/fairtally/releases/new>`_.
 
 DockerHub
 ^^^^^^^^^
