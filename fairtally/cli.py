@@ -46,5 +46,5 @@ def cli(urls, input_file, output_format, output_filename):
             click.echo("Unsupported format", err=True)
             sys.exit(1)
 
-    msg = f"Completed fairtally checks on {len(all_urls)} URLs results written to {output_filename}"
+    msg = f"Completed fairtally on {len(all_urls)} URLs and written report to {output_filename}"
     current_value.set_description_str(msg)
