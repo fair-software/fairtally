@@ -94,6 +94,29 @@ The analysis will look something like this:
 
 You can sort the table by clicking on the table headers. The purple plus signs on the left provide access to log messages of fairtally.
 
+Research Software Directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To FAIR tally the software listed on the `Research Software Directory of the Netherlands eScience Center <https://research-software.nl/>`_.
+
+First download a list of software by calling `RSD API <https://github.com/research-software-directory/research-software-directory/blob/master/docs/documentation-for-developers.md#api>`_
+
+.. code-block:: console
+
+  curl https://research-software.nl/api/software > software.json
+
+Next, extract the repository URLs with `jq <https://stedolan.github.io/jq/>`_.
+
+.. code-block:: console
+
+  cat software.json | jq -r '[.[].repositoryURLs.github] | flatten | .[]' > urls.txt
+
+Finally run fairtally to generate a report.
+
+.. code-block:: console
+
+  fairtally --html report.html --input-file urls.txt
+
 Documentation
 *************
 
