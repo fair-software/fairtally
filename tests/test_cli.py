@@ -62,7 +62,7 @@ def test_singleurl_nooptions(invoke_cli, cli_runner: CliRunner):
         result = invoke_cli(url)
 
         assert "fairtally progress" in result.stderr
-        assert "Completed checks on 1 URLs results written to tally.html" in result.stderr
+        assert "Completed howfairis checks on 1 URLs results written to tally.html" in result.stderr
         assert result.exit_code == 0
         assert url in read_file("tally.html")
 
@@ -74,7 +74,7 @@ def test_input_from_file2stdout(invoke_cli, tmp_path):
     result = invoke_cli(["--input-file", str(my_input_file), "--output-file", "-"])
 
     assert "fairtally progress" in result.stderr
-    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert "Completed howfairis checks on 1 URLs results written to -" in result.stderr
     assert result.exit_code == 0
     assert "https://github.com/fair-software/repo1" in result.stdout
 
@@ -85,7 +85,7 @@ def test_input_from_stdin2stdout(invoke_cli):
     result = invoke_cli(["--input-file", "-", "--output-file", "-"], input=stdin)
 
     assert "fairtally progress" in result.stderr
-    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert "Completed howfairis checks on 1 URLs results written to -" in result.stderr
     assert result.exit_code == 0
     assert "https://github.com/fair-software/repo1" in result.stdout
 
@@ -96,7 +96,7 @@ def test_json_format(invoke_cli, cli_runner):
         result = invoke_cli([url, "--format", "json"])
 
         assert "fairtally progress" in result.stderr
-        assert "Completed checks on 1 URLs results written to tally.json" in result.stderr
+        assert "Completed howfairis checks on 1 URLs results written to tally.json" in result.stderr
         assert result.exit_code == 0
         assert url in read_file("tally.json")
 
@@ -106,6 +106,6 @@ def test_json_format2stdout(invoke_cli):
     result = invoke_cli([url, "--format", "json", "--output-file", "-"])
 
     assert "fairtally progress" in result.stderr
-    assert "Completed checks on 1 URLs results written to -" in result.stderr
+    assert "Completed howfairis checks on 1 URLs results written to -" in result.stderr
     assert result.exit_code == 0
     assert url in result.stdout

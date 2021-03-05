@@ -30,7 +30,6 @@ def cli(urls, input_file, output_format, output_filename):
     url_progressbar = tqdm(all_urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
     current_value = tqdm(total=0, bar_format="{desc}", position=1)
     results = [check_url(url, current_value) for url in url_progressbar]
-    current_value.set_description_str()
 
     if output_filename == 'tally.html' and output_format == 'json':
         output_filename = 'tally.json'
@@ -44,4 +43,5 @@ def cli(urls, input_file, output_format, output_filename):
             click.echo("Unsupported format", err=True)
             sys.exit(1)
 
-    click.echo(f'Completed checks on {len(all_urls)} URLs results written to {output_filename}', err=True)
+    msg = f'Completed howfairis checks on {len(all_urls)} URLs results written to {output_filename}'
+    current_value.set_description_str(msg)
