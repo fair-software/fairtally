@@ -96,7 +96,7 @@ Update example HTML report by running
 
   fairtally -o docs/_static/fairtally_example.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
 
-Update screenshot (``docs/_static/fairtally_example.png``) by running Google Chrome screenshot command with:
+Update screenshot (``docs/_static/fairtally_example.png``), for example by running Google Chrome screenshot command with:
 
 .. code:: shell
 
