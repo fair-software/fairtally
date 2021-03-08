@@ -102,7 +102,7 @@ Update screenshot (``docs/_static/fairtally_example.png``) by running Google Chr
 
   google-chrome --headless --disable-gpu --window-size=1150,280 --screenshot=docs/_static/fairtally_example.png docs/_static/fairtally_example.html
 
-If size of report changed then you will need to adjust the window-size argument value.
+If size of report changed then adjust the ``--window-size`` argument value accordingly.
 
 Making a release
 ----------------
