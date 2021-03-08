@@ -1,17 +1,36 @@
 # YAML 1.2
 ---
-cff-version: "1.1.0"
-title: "fairtally"
-authors:
+abstract: "Command line tool to generate reports for a list of github/gitlab repositories with respect to their compliance with the Five recommendations for FAIR software (https://fair-software.eu)"
+authors: 
   -
-    family-names: "FAIR Software"
-    given-names:
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-date-released: 20??-MM-DD
-doi: <insert your DOI here>
-version: "0.1.0"
-repository-code: "https://github.com/fair-software/fairtally"
-identifiers:
-keywords:
+    affiliation: "Netherlands eScience Center"
+    family-names: Verhoeven
+    given-names: Stefan
+    orcid: "https://orcid.org/0000-0002-5821-2060"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Diblen
+    given-names: Faruk
+    orcid: "https://orcid.org/0000-0002-0989-929X"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Spaaks
+    given-names: "Jurriaan H."
+    orcid: "https://orcid.org/0000-0002-7064-4069"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: "Tjong Kim Sang"
+    given-names: Erik
+    orcid: "https://orcid.org/0000-0002-8431-081X"
+cff-version: "1.1.0"
+date-released: 2021-03-09
+doi: "10.0000/FIXME"
+keywords: 
+  - "FAIR software metrics"
+  - howfairis
+license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
-license: "Apache Software License 2.0"
+repository-code: "https://github.com/fair-software/fairtally"
+title: fairtally
+version: "0.1.0"
+...
