@@ -88,7 +88,7 @@ Bumping the version across all files is done with bump2version, e.g.
 Example report
 --------------
 
-The `example HTML report <https://fair-software.github.io/fairtally/_static/fairtally_example.html>`_ its and `screenshot <https://github.com/fair-software/fairtally/raw/main/docs/_static/fairtally_example.png>`_ need to be updated when the User Interface or example command changes.
+The `example HTML report <https://fair-software.github.io/fairtally/_static/fairtally_example.html>`_ and its `screenshot <https://github.com/fair-software/fairtally/raw/main/docs/_static/fairtally_example.png>`_ need to be updated when the User Interface or example command changes.
 
 Update example HTML report by running
 
