@@ -85,6 +85,25 @@ Bumping the version across all files is done with bump2version, e.g.
     bump2version minor
 
 
+Example report
+--------------
+
+The `example HTML report <https://fair-software.github.io/fairtally/_static/fairtally_example.html>`_ its and `screenshot <https://github.com/fair-software/fairtally/raw/main/docs/_static/fairtally_example.png>`_ need to be updated when the User Interface or example command changes.
+
+Update example HTML report by running
+
+.. code:: shell
+
+  fairtally -o docs/_static/fairtally_example.html https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis
+
+Update screenshot (``docs/_static/fairtally_example.png``) by running Google Chrome screenshot command with:
+
+.. code:: shell
+
+  google-chrome --headless --disable-gpu --window-size=1150,280 --screenshot=docs/_static/fairtally_example.png docs/_static/fairtally_example.html
+
+If size of report changed then you will need to adjust the window-size argument value.
+
 Making a release
 ----------------
 
@@ -95,6 +114,7 @@ Preparation
 2. Verify that the information in ``CITATION.cff`` is correct, and that ``.zenodo.json`` contains equivalent data
 3. Make sure the version has been updated.
 4. Run the unit tests with ``pytest``
+5. Make sure `example report <#example-report>`_ is up to date
 
 PyPI
 ^^^^
