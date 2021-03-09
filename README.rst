@@ -24,7 +24,9 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
      -
    * - Continuous integration
      - |Python Build| |PyPI Publish|
-   * - |DockerHub| |dockerhub badge|
+   * - DockerHub 
+     - |dockerhub badge|
+   
 .. |GitHub Badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/fairtally
    :alt: GitHub Badge
