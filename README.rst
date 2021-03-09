@@ -117,6 +117,12 @@ You can run fairtally Docker image using the command below.
 
 `--rm` argument will remove Docker container after execution.
 
+To tally 2 URLs and save the report as `tally.html` in the current working directory you can run the command below.
+
+.. code:: console
+
+    docker run --rm fairsoftware/fairtally -o - https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis > tally.html
+
 See developer documentation to learn how to modify the Docker image.
 
 Research Software Directory
