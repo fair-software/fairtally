@@ -174,7 +174,7 @@
         name: 'expand',
         required: true,
         label: '',
-        field: 'expand',
+        field: 'stderr',
         align: 'center'
       },
     ];
