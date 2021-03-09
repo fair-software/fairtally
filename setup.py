@@ -13,7 +13,7 @@ setup(
     entry_points={
         "console_scripts": ["fairtally=fairtally.cli:cli"],
     },
-    version="0.0.0",
+    version="0.1.0",
     description="Make a report based on howfairis results",
     long_description=readme + "\n\n",
     author="FAIR Software",

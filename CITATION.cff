@@ -32,5 +32,5 @@ license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
 repository-code: "https://github.com/fair-software/fairtally"
 title: fairtally
-version: "0.0.0"
+version: "0.1.0"
 ...
