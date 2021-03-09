@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import os
-from fairtally.__version__ import __version__
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -14,7 +13,7 @@ setup(
     entry_points={
         "console_scripts": ["fairtally=fairtally.cli:cli"],
     },
-    version=__version__,
+    version="0.0.0",
     description="Make a report based on howfairis results",
     long_description=readme + "\n\n",
     author="FAIR Software",
