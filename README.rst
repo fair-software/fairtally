@@ -146,7 +146,7 @@ Finally run fairtally to generate a report.
 
 .. code-block:: console
 
-fairtally --output-file report.html --input-file urls.txt
+  fairtally --output-file report.html --input-file urls.txt
 
 Documentation
 *************
