@@ -142,6 +142,7 @@ The output of the command will be something like:
                                read from standard input.
 
     --format [html|json]       Format of output.  [default: html]
+    --version                  Show the version and exit.
     --help                     Show this message and exit.
 
 Contributing

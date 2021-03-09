@@ -1,6 +1,7 @@
 import sys
 import click
 from tqdm import tqdm
+from fairtally import __version__
 from fairtally.check import check_url
 from fairtally.utils import merge_urls
 from fairtally.utils import write_as_html
@@ -10,7 +11,7 @@ from fairtally.utils import write_as_json
 DEFAULT_OUTPUT_FILENAME = "tally.html"
 
 
-@click.command()
+@click.command('fairtally')
 @click.argument("urls", nargs=-1)
 @click.option("--output-file", "-o", "output_filename",
               help="Filename of where to write the results. Use `-` to write to standard out.",
@@ -23,6 +24,7 @@ DEFAULT_OUTPUT_FILENAME = "tally.html"
               help="Format of output.",
               default="html", show_default=True,
               type=click.Choice(("html", "json")))
+@click.version_option(__version__)
 def cli(urls, input_file, output_format, output_filename):
     all_urls = merge_urls(urls, input_file)
 
