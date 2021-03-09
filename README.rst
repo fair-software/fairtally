@@ -57,12 +57,12 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
    :target: https://bestpractices.coreinfrastructure.org/projects/4690
    :alt: CII Best Practices Badge
 
-.. |Python Build| image:: https://github.com/fair-software/fairtally/workflows/Python/badge.svg
-   :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22Python%22
+.. |Python Build| image:: https://github.com/fair-software/fairtally/actions/workflows/build.yml/badge.svg
+   :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22build%22
    :alt: Python Build
 
-.. |PyPI Publish| image:: https://github.com/fair-software/fairtally/workflows/PyPI/badge.svg
-   :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22PyPI%22
+.. |PyPI Publish| image:: https://github.com/fair-software/fairtally/workflows/Publish/badge.svg
+   :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22Publish%22
    :alt: PyPI Publish
 
 .. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/fairtally
