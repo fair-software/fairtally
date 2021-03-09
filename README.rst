@@ -76,7 +76,7 @@ To install fairtally, do:
 
 .. code-block:: console
 
-  pip3 install fairtally
+  pip3 install --user fairtally
 
 Usage
 -----
