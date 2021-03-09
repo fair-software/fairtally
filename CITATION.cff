@@ -1,7 +1,7 @@
 # YAML 1.2
 ---
 abstract: "Command line tool to generate reports for a list of github/gitlab repositories with respect to their compliance with the Five recommendations for FAIR software (https://fair-software.eu)"
-authors: 
+authors:
   -
     affiliation: "Netherlands eScience Center"
     family-names: Verhoeven
@@ -25,12 +25,12 @@ authors:
 cff-version: "1.1.0"
 date-released: 2021-03-09
 doi: "10.0000/FIXME"
-keywords: 
+keywords:
   - "FAIR software metrics"
   - howfairis
 license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
 repository-code: "https://github.com/fair-software/fairtally"
 title: fairtally
-version: "0.1.0"
+version: "0.0.0"
 ...
