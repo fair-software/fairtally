@@ -131,8 +131,8 @@ Logging
 * The project is set up with a logging example.
 * `Relevant section in the guide <https://guide.esciencecenter.nl/best_practices/language_guides/python.html#logging>`_
 
-CHANGELOG.rst
--------------
+CHANGELOG.md
+------------
 
 * Document changes to your software package
 * `Relevant section in the guide <https://guide.esciencecenter.nl/software/releases.html#changelogmd>`_
