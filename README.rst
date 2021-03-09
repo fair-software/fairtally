@@ -140,7 +140,13 @@ Finally run fairtally to generate a report.
 
 .. code-block:: console
 
-  fairtally --output-file report.html --input-file urls.txt
+  cat urls.txt | docker run --rm fairsoftware/fairtally --input-file - --output-file - > tally.html
+
+You can also directly use the repository urls as an argument instead of storing them in a file.
+
+.. code-block:: console
+
+  docker run --rm fairsoftware/fairtally --output-file - https://github.com/fair-software/howfairis https://github.com/fair-software/fairtally  > tally.html
 
 Documentation
 *************
