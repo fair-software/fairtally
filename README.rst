@@ -53,7 +53,7 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
 
 ..
     A CII Best Practices project can be created at https://bestpractices.coreinfrastructure.org/en/projects/new
-.. |CII Best Practices Badge| image:: https://bestpractices.coreinfrastructure.org/projects/< replace with created project identifier >/badge
+.. |CII Best Practices Badge| image:: https://bestpractices.coreinfrastructure.org/projects/4690/badge
    :target: https://bestpractices.coreinfrastructure.org/projects/4690
    :alt: CII Best Practices Badge
 
