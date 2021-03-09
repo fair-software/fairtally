@@ -24,7 +24,7 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
      -
    * - Continuous integration
      - |Python Build| |PyPI Publish|
-
+   * - |DockerHub| |dockerhub badge|
 .. |GitHub Badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/fairtally
    :alt: GitHub Badge
@@ -63,6 +63,10 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
    :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22PyPI%22
    :alt: PyPI Publish
 
+.. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/fairtally
+   :target: https://hub.docker.com/r/fairsoftware/fairtally
+   :alt: Docker Pulls
+
 Installation
 ------------
 
@@ -95,6 +99,31 @@ The report will look similar to the example below:
   :target: https://fair-software.github.io/fairtally/_static/fairtally_example.html
 
 You can sort the table by clicking on the table headers. The purple plus signs provide access to log messages of each repository.
+
+Using Docker image
+------------------
+
+You can run fairtally Docker image using the command below.
+
+.. code:: console
+
+    docker pull fairsoftware/fairtally
+
+You can run fairtally Docker image using the command below.
+
+.. code:: console
+
+    docker run --rm fairsoftware/fairtally --help
+
+`--rm` argument will remove Docker container after execution.
+
+To tally 2 URLs and save the report as `tally.html` in the current working directory you can run the command below.
+
+.. code:: console
+
+    docker run --rm fairsoftware/fairtally -o - https://github.com/fair-software/fairtally https://github.com/fair-software/howfairis > tally.html
+
+See developer documentation to learn how to modify the Docker image.
 
 Research Software Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
