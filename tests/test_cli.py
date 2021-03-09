@@ -1,6 +1,8 @@
 import pytest
 import requests_mock
 from click.testing import CliRunner
+
+from fairtally import __version__
 from fairtally.cli import cli
 
 
@@ -42,6 +44,16 @@ def invoke_cli(mocked_internet, cli_runner):
             return cli_runner.invoke(cli, args, catch_exceptions=False, **kwargs)
 
     return _invoker
+
+
+def test_help(invoke_cli):
+    result = invoke_cli('--help')
+    assert 'Usage: fairtally' in result.stdout
+
+
+def test_version(invoke_cli):
+    result = invoke_cli('--version')
+    assert __version__ in result.stdout
 
 
 def test_no_url(invoke_cli):
