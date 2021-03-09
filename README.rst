@@ -100,6 +100,9 @@ The report will look similar to the example below:
 
 You can sort the table by clicking on the table headers. The purple plus signs provide access to log messages of each repository.
 
+  Checking many repositories will quickly exceed the rate limit of the APIs of GitLab and GitHub and resulting in all remaining repositories to be fully non-compliantly.
+  See `howfairis docs <https://github.com/fair-software/howfairis/#rate-limit>`_ how setup environment variables to increase the rate limit.
+
 Using Docker image
 ------------------
 
