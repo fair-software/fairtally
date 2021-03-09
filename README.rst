@@ -23,10 +23,10 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
    * - **Other best practices**
      -
    * - Continuous integration
-     - |Python Build| |PyPI Publish| |Linter|
-   * - DockerHub 
+     - |Python Build| |Linter|
+   * - DockerHub
      - |dockerhub badge|
-   
+
 .. |GitHub Badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/fairtally
    :alt: GitHub Badge
@@ -61,13 +61,9 @@ Python application to analyze multiple GitHub and GitLab repositories compliance
    :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22build%22
    :alt: Python Build
 
-.. |PyPI Publish| image:: https://github.com/fair-software/fairtally/workflows/Publish/badge.svg
-   :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22Publish%22
-   :alt: PyPI Publish
-   
 .. |Linter| image:: https://github.com/fair-software/fairtally/actions/workflows/linting.yml/badge.svg
    :target: https://github.com/fair-software/fairtally/actions?query=workflow%3A%22Linting%22
-   :alt: Linter   
+   :alt: Linter
 
 .. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/fairtally
    :target: https://hub.docker.com/r/fairsoftware/fairtally
