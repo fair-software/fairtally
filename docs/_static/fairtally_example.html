@@ -15,7 +15,23 @@
 <body>
   <div id="q-app" style="min-height: 100vh;">
     <div class="q-pa-md">
-      <q-table title="Fairtally results" :rows="rows" :columns="columns" row-key="url" :pagination.sync="pagination" >
+      <q-table
+        title="Fairtally results"
+        :rows="rows"
+        :columns="columns"
+        :filter="filter"
+        :filter-method="filterUrl"
+        :pagination.sync="pagination"
+        row-key="url"
+      >
+
+        <template v-slot:top-right>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search url">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
 
         <template v-slot:header="props">
           <q-tr :props="props">
@@ -85,7 +101,7 @@
   <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.umd.prod.js"></script>
 
   <script>
-
+    const { ref } = Vue
     const columns = [
       {
         name: 'url',
@@ -145,16 +161,31 @@
         align: 'center'
       },
     ];
-    const rows = [{"url": "https://github.com/fair-software/fairtally", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow", "repository": true, "license": true, "registry": true, "citation": true, "checklist": false, "count": 4, "stdout": "", "stderr": "/home/verhoes/git/fair-software/fairtally/env/lib/python3.8/site-packages/howfairis/workarounds/remove_comments_rst.py:5: UserWarning: Unable to ignore comments in RestructuredText format of README.rst, checks will also see comments\n  warnings.warn(\"Unable to ignore comments in RestructuredText format of {0}, checks will also see comments\".format(fname))\n"}, {"url": "https://github.com/fair-software/howfairis", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green", "repository": true, "license": true, "registry": true, "citation": true, "checklist": true, "count": 5, "stdout": "", "stderr": ""}];
+    const rows = [{"url": "https://github.com/fair-software/fairtally", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow", "repository": true, "license": true, "registry": true, "citation": true, "checklist": false, "count": 4, "stdout": "", "stderr": ""}, {"url": "https://github.com/fair-software/howfairis", "badge": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green", "repository": true, "license": true, "registry": true, "citation": true, "checklist": true, "count": 5, "stdout": "", "stderr": ""}];
 
     const app = Vue.createApp({
       setup() {
         return {
           columns,
           rows,
+          filter: ref(''),
           pagination: {
             rowsPerPage: 0
           },
+        }
+      },
+      methods: {
+        filterUrl (rows, terms, cols, cellValue) {
+          const lowerTerms = terms ? terms.toLowerCase() : ''
+          return rows.filter(
+            row => cols.filter( col =>
+              col.name === 'url'
+            ).some(col => {
+              const val = cellValue(col, row) + ''
+              const haystack = (val === 'undefined' || val === 'null') ? '' : val.toLowerCase()
+              return haystack.indexOf(lowerTerms) !== -1
+            })
+          )
         }
       }
     })
