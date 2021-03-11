@@ -35,7 +35,6 @@ def cli(urls, input_file, output_format, output_filename):
     url_progressbar = tqdm(all_urls, bar_format="fairtally progress: |{bar}| {n_fmt}/{total_fmt}", ncols=70, position=0)
     current_value = tqdm(total=0, bar_format="{desc}", position=1)
     results = [check_url(url, current_value) for url in url_progressbar]
-    current_value.close()
 
     if output_filename == DEFAULT_OUTPUT_FILENAME and output_format == "json":
         output_filename = "tally.json"
@@ -51,3 +50,4 @@ def cli(urls, input_file, output_format, output_filename):
 
     msg = f"Completed fairtally on {len(all_urls)} URLs and written report to {output_filename}"
     current_value.set_description_str(msg)
+    current_value.close()
