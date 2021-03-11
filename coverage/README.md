@@ -1,4 +1,4 @@
-#Coverage reporting
+# Coverage reporting
 
 The coverage reports will be written in this directory. After running `pytest`, the directory should look more or less like this:
 
