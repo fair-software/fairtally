@@ -2,11 +2,14 @@ import sys
 
 
 # from https://stackoverflow.com/a/6796752
-class RedirectStdStreams():
+class RedirectStdStreams:
+    """ """
 
     def __init__(self, stdout=None, stderr=None):
         self._stdout = stdout or sys.stdout
         self._stderr = stderr or sys.stderr
+        self.old_stdout = None
+        self.old_stderr = None
 
     def __enter__(self):
         self.old_stdout, self.old_stderr = sys.stdout, sys.stderr

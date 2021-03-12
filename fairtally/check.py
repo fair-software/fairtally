@@ -6,6 +6,7 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
 
 
 def check_url(url, current_value):
+    """ """
     stderr_buffer = io.StringIO()
     stdout_buffer = io.StringIO()
     with RedirectStdStreams(stdout=stdout_buffer, stderr=stderr_buffer):
@@ -13,6 +14,7 @@ def check_url(url, current_value):
             current_value.set_description_str("currently checking " + url)
             repo = Repo(url)
             compliance = Checker(repo, ignore_repo_config=True, is_quiet=True).check_five_recommendations()
+        # pylint: disable=broad-except
         except Exception:
             compliance = Compliance(False, False, False, False, False)
 
