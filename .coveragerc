@@ -13,5 +13,5 @@ output = coverage/coverage.xml
 
 [report]
 omit =
-    venv*
+    *env*
     tests/*
