@@ -3,7 +3,7 @@ import sys
 
 # from https://stackoverflow.com/a/6796752
 class RedirectStdStreams:
-    """ """
+    """Temporary redirect stdout and stderr to given file handles"""
 
     def __init__(self, stdout=None, stderr=None):
         self._stdout = stdout or sys.stdout
