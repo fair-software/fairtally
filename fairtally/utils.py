@@ -6,7 +6,7 @@ from typing import TextIO
 
 
 def merge_urls(urls: Set[str], input_file: TextIO) -> List[str]:
-    """ """
+    """Merge URLs given as separate positional arguments and input file"""
     all_urls = list(urls)
     if input_file is not None:
         for line in input_file:
