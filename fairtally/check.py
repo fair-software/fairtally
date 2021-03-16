@@ -6,7 +6,7 @@ from fairtally.redirect_stdout_stderr import RedirectStdStreams
 
 
 def check_url(url, current_value):
-    """ """
+    """Run howfairis checks on given url and report current url in tqdm progressbar"""
     stderr_buffer = io.StringIO()
     stdout_buffer = io.StringIO()
     with RedirectStdStreams(stdout=stdout_buffer, stderr=stderr_buffer):
