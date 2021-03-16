@@ -26,7 +26,7 @@ DEFAULT_OUTPUT_FILENAME = "tally.html"
               type=click.Choice(("html", "json")))
 @click.version_option(__version__)
 def cli(urls, input_file, output_format, output_filename):
-    """" """
+    """"Command line interface for fairtally"""
     all_urls = merge_urls(urls, input_file)
 
     if len(all_urls) == 0:
