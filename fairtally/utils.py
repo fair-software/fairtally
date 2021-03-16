@@ -28,6 +28,6 @@ def write_as_html(results, output_file_html: TextIO):
 
 
 def write_as_json(results, output_file_json: TextIO):
-    """ """
+    """Write results to output file in JSON format"""
     with output_file_json:
         json.dump(results, output_file_json, sort_keys=True)
