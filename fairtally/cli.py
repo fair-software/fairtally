@@ -11,7 +11,7 @@ from fairtally.utils import write_as_json
 DEFAULT_OUTPUT_FILENAME = "tally.html"
 
 
-@click.command('fairtally')
+@click.command("fairtally")
 @click.argument("urls", nargs=-1)
 @click.option("--output-file", "-o", "output_filename",
               help="Filename of where to write the results. Use `-` to write to standard out.",
@@ -26,6 +26,7 @@ DEFAULT_OUTPUT_FILENAME = "tally.html"
               type=click.Choice(("html", "json")))
 @click.version_option(__version__)
 def cli(urls, input_file, output_format, output_filename):
+    """"Command line interface for fairtally"""
     all_urls = merge_urls(urls, input_file)
 
     if len(all_urls) == 0:
