@@ -49,5 +49,6 @@ def cli(urls, input_file, output_format, output_filename):
             sys.exit(1)
 
     msg = f"Completed fairtally on {len(all_urls)} URLs and written report to {output_filename}"
-    current_value.set_description_str(msg)
+    current_value.set_description_str((len("currently checking ") + max([len(u) for u in all_urls])) * ' ')
     current_value.close()
+    click.echo(msg, err=True)
