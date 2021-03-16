@@ -17,7 +17,7 @@ def merge_urls(urls: Set[str], input_file: TextIO) -> List[str]:
 
 
 def write_as_html(results, output_file_html: TextIO):
-    """ """
+    """Writes results to output file in HTML format"""
     parent = Path(__file__).parent
     template_file = parent / "data" / "index.html.template"
     with open(template_file) as fid:
