@@ -23,3 +23,9 @@ docs/apidocs
 
 # Mac
 .DS_Store
+
+# fairtally default output file with results
+/tally.html
+
+# virtual environment
+/venv3
