@@ -10,6 +10,18 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
     type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.8/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+  <style>
+    .q-table tbody td {
+      text-align: center;
+      font-size: x-large;
+    }
+    .q-table th {
+      font-size: large;
+    }
+    .q-table__sort-icon {
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
@@ -35,7 +47,6 @@
 
         <template v-slot:header="props">
           <q-tr :props="props">
-            <q-th auto-width></q-th>
             <q-th
               v-for="col in props.cols"
               :key="col.name"
@@ -47,11 +58,8 @@
         </template>
 
         <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td auto-width>
-              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
-            </q-td>
-            <q-td>
+          <q-tr :props="props" style="text-align:middle;">
+            <q-td style="text-align: left; font-size: medium;">
               <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
             </q-td>
             <q-td>
@@ -69,21 +77,24 @@
             <q-td>
               <compliance :status="props.row.checklist" />
             </q-td>
-            <q-td>
+            <q-td style="font-size: medium;">
               <span>{{ props.row.count }}</span>
             </q-td>
             <q-td>
               <img :src="props.row.badge" alt="FAIR software badge"/>
             </q-td>
+            <q-td v-show="props.row.stdout || props.row.stderr">
+              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
+            </q-td>
           </q-tr>
-          <q-tr v-show="props.expand" :props="props">
-            <q-td colspan="100%">
+          <q-tr v-show="props.expand && (props.row.stdout || props.row.stderr)" :props="props">
+            <q-td colspan="100%" style="font-size: small;">
               <div class="text-left">
-                <div>
+                <div v-show="props.row.stdout">
                   <span>Standard output:</span>
                   <pre>{{ props.row.stdout }}</pre>
                 </div>
-                <div>
+                <div v-show="props.row.stderr">
                   <span>Standard error:</span>
                   <pre>{{ props.row.stderr }}</pre>
                 </div>
@@ -158,6 +169,12 @@
         required: true,
         label: 'badge',
         field: 'badge',
+        align: 'center'
+      }, {
+        name: 'expand',
+        required: true,
+        label: '',
+        field: 'stderr',
         align: 'center'
       },
     ];
